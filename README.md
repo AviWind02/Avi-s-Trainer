@@ -6,18 +6,17 @@
 
 # Added 
 Added MapMods:
-Maze
-Bank Demolition
-Maze Bank Roof Ramp
-Beach Ferris-Ramp
-Airport Mini Ramp
-Airport Gate Ramp
-UFO Tower
-Maze Bank Quad Ramp
-Fort Zancudo Motorcross
-Halfpipe Fun Track
-Airport Loop
-Maze Bank Ramp
+Maze Bank Demolition,
+Maze Bank Roof Ramp,
+Beach Ferris-Ramp,
+Airport Mini Ramp,
+Airport Gate Ramp,
+UFO Tower,
+Maze Bank Quad Ramp,
+Fort Zancudo Motorcross,
+Halfpipe Fun Track,
+Airport Loop,
+Maze Bank Ramp,
 
 
 

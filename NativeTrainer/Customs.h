@@ -1,0 +1,84 @@
+#pragma once
+namespace LSC
+{
+	extern bool Neon;
+	extern bool Neonl;
+	extern bool Neonf;
+	extern bool Neonr;
+	extern bool Neonrr;
+
+}
+void LSCWwW();
+void pbrdght();
+void sbrdight();
+void Respdrayss();
+void RespdrayssED();
+void Smomke();
+void TRaGB();
+void Primaaaryyy();
+void Charome();
+void ClassicMetaallic();
+void Mattae();
+void Meatals();
+void SUVrisms();
+void Lowrisderrims();
+void Sportrsims();
+void Oaffroadrims();
+void Secondaryysy();
+void pearlesscents();
+void Cahromes();
+void ClassicMetallaics();
+void Matteas();
+void Metaalss();
+void Wheelss();
+void WheelColour();
+void BackWheaels();
+void Rimns();
+void Tunerrimss();
+void auscalerims();
+void Hdghendrims();
+void Lightttt();
+void NEEaE();
+void Neonnan();
+void fbumpear();
+void plateeeae();
+void insidea();
+void Oa();
+void Ba();
+void Vaniaty();
+void Triamd();
+void Ornamentas();
+void Dashboaard();
+void Diaals();
+void Speaadker();
+void Speakferr();
+void Seaatas();
+void Steeringwheael();
+void Shiffter();
+void Plaqaues();
+void Trunak();
+void Hydrulicas();
+void Blocak();
+void Flitersa();
+void Strutsa();
+void Livreya();
+void Aerialsa();
+void Tanka();
+void FACTIONbich();
+void LSCfunctions();
+//void test_somethignbetter();
+void proformancce();
+void engineEMS();
+void BrakesEMS();
+void TransmissionEMS();
+void SuspensionEMS();
+void LSC_vehicle_Mods();
+void Bennys_vehicle_Mods();
+void Window_Options();
+void Armours();
+void plate_Options();
+void tor();
+void epower();
+void deletecar();
+
+

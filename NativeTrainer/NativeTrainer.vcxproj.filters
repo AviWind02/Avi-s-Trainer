@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Trainer\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>Trainer\Keys</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Trainer\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Self.cpp">
+      <Filter>Submneu\Self</Filter>
+    </ClCompile>
+    <ClCompile Include="Teleport.cpp">
+      <Filter>Submneu\Locations</Filter>
+    </ClCompile>
+    <ClCompile Include="Customs.cpp">
+      <Filter>Submneu\Vehicle\Customs</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Submneu\Vehicle\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="WOptions.cpp">
+      <Filter>Submneu\Weapons\WOptions</Filter>
+    </ClCompile>
+    <ClCompile Include="GunStore.cpp">
+      <Filter>Submneu\Weapons\Gun Stroe</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMisc.cpp">
+      <Filter>Submneu\World/Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Submneu\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Snow.cpp">
+      <Filter>Trainer\Snow</Filter>
+    </ClCompile>
+    <ClCompile Include="Spooner menu.cpp">
+      <Filter>Submneu\sponner</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectList.cpp">
+      <Filter>Submneu\sponner</Filter>
+    </ClCompile>
+    <ClCompile Include="VOptions.cpp">
+      <Filter>Submneu\Vehicle\VOptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Ped.cpp">
+      <Filter>Trainer\TrainerFunctions\Ped</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Trainer\TrainerFunctions\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Trainer\TrainerFunctions\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityNative.cpp">
+      <Filter>Trainer\TrainerFunctions\Entity Natives</Filter>
+    </ClCompile>
+    <ClCompile Include="script.cpp">
+      <Filter>Submneu\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>Trainer\TrainerFunctions\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>Trainer\TrainerFunctions\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Protalgun.cpp">
+      <Filter>Submneu\Weapons\OtherGuns\protalgun</Filter>
+    </ClCompile>
+    <ClCompile Include="StickDetonator.cpp">
+      <Filter>Submneu\Weapons\OtherGuns\StickDetonatorgun</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackList.cpp">
+      <Filter>Trainer\Outisde asi file stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Trainer\TrainerFunctions\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Clothing.cpp">
+      <Filter>Submneu\PlayerAppearance\Clothing</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Submneu\PlayerAppearance\Models</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\inc\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\enums.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\natives.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\inc\main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Trainer\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MAIN.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>Trainer\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Self.h">
+      <Filter>Submneu\Self</Filter>
+    </ClInclude>
+    <ClInclude Include="Teleport.h">
+      <Filter>Submneu\Locations</Filter>
+    </ClInclude>
+    <ClInclude Include="Customs.h">
+      <Filter>Submneu\Vehicle\Customs</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Submneu\Vehicle\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="WOptions.h">
+      <Filter>Submneu\Weapons\WOptions</Filter>
+    </ClInclude>
+    <ClInclude Include="GunStore.h">
+      <Filter>Submneu\Weapons\Gun Stroe</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldMisc.h">
+      <Filter>Submneu\World/Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Settgins.h">
+      <Filter>Submneu\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="snow.h">
+      <Filter>Trainer\Snow</Filter>
+    </ClInclude>
+    <ClInclude Include="Sponner.h">
+      <Filter>Submneu\sponner</Filter>
+    </ClInclude>
+    <ClInclude Include="Auth.h">
+      <Filter>AUTH</Filter>
+    </ClInclude>
+    <ClInclude Include="VOptions.h">
+      <Filter>Submneu\Vehicle\VOptions</Filter>
+    </ClInclude>
+    <ClInclude Include="ped.h">
+      <Filter>Trainer\TrainerFunctions\Ped</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Trainer\TrainerFunctions\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Trainer\TrainerFunctions\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityNative.h">
+      <Filter>Trainer\TrainerFunctions\Entity Natives</Filter>
+    </ClInclude>
+    <ClInclude Include="script.h">
+      <Filter>Submneu\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>Trainer\TrainerFunctions\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>Trainer\TrainerFunctions\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Protalgun.h">
+      <Filter>Submneu\Weapons\OtherGuns\protalgun</Filter>
+    </ClInclude>
+    <ClInclude Include="StickDetonator.h">
+      <Filter>Submneu\Weapons\OtherGuns\StickDetonatorgun</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackList.h">
+      <Filter>Trainer\Outisde asi file stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Trainer\TrainerFunctions\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Avi%27s Trainer\samples\NativeTrainer\Clothing.h">
+      <Filter>Submneu\PlayerAppearance\Clothing</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Submneu\PlayerAppearance\Models</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{fe82bd4a-2d14-486a-8be5-8bf6b50a2414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer">
+      <UniqueIdentifier>{4e43420c-8708-4a31-9d99-aa26478053ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\Other">
+      <UniqueIdentifier>{b2961fdf-ef52-4428-876c-984c8e5c61d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\Keys">
+      <UniqueIdentifier>{b9b8d882-9ba7-4481-b507-a9b35df836f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu">
+      <UniqueIdentifier>{d897d936-d39a-4c2a-a2de-b45eb05cea5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Self">
+      <UniqueIdentifier>{cd0ca4ec-1e0b-4279-99f5-5e6d720e8b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Vehicle">
+      <UniqueIdentifier>{6a1d07db-f5db-421d-94cf-cfad724c61c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Vehicle\Spawner">
+      <UniqueIdentifier>{6a82dcc1-aa77-46f5-bafe-e74f14ad327d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Vehicle\Customs">
+      <UniqueIdentifier>{5036ef05-3b4d-4a3c-9ebe-60b494d483a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons">
+      <UniqueIdentifier>{ebb833e9-f28d-4a6c-86e4-75da13834ff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\World/Misc">
+      <UniqueIdentifier>{f8bd599d-3376-485b-bfd9-0a103eddb625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Settings">
+      <UniqueIdentifier>{2aa67e57-e4a1-4851-8f3e-998301dfcb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Locations">
+      <UniqueIdentifier>{a42bec67-b5b5-4b7f-8d14-4774976117f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\Snow">
+      <UniqueIdentifier>{6b24e5ff-8465-4a95-9a7f-3cbb78ba3eb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\GUI">
+      <UniqueIdentifier>{23375591-ba20-4b12-90fc-86c131994626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\sponner">
+      <UniqueIdentifier>{58303ee5-0bc3-4f0f-930c-f813a724912b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AUTH">
+      <UniqueIdentifier>{0e3bf2ab-0935-4f3f-b30c-2f4b40573ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons\Gun Stroe">
+      <UniqueIdentifier>{8b5de2e6-ff67-42b2-a5f6-7fea356e2b48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions">
+      <UniqueIdentifier>{b159f1a0-2e94-4f56-831e-d934687cbb49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Ped">
+      <UniqueIdentifier>{03c232a5-8df1-462e-9069-da94ce7e9826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Entity">
+      <UniqueIdentifier>{33c35903-a66a-4bb2-80f0-52ab618410d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Map">
+      <UniqueIdentifier>{84b814fe-c11f-428c-be8b-94a76e363a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Functions">
+      <UniqueIdentifier>{c2ded612-65da-4532-ac96-5de3f5c188a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Entity Natives">
+      <UniqueIdentifier>{7bc507cd-93ad-491c-a035-e90d2b878105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\Vehicle">
+      <UniqueIdentifier>{fcc496f2-98dc-4d4f-a55c-dbf33786a869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\PlayerAppearance">
+      <UniqueIdentifier>{c787fce4-6e3f-4ce7-ae88-2d4828840529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons\OtherGuns">
+      <UniqueIdentifier>{69d9b357-fd7c-4b39-b43e-259daecc31fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons\OtherGuns\protalgun">
+      <UniqueIdentifier>{0a9f608d-956e-454f-b60f-134616502781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons\OtherGuns\StickDetonatorgun">
+      <UniqueIdentifier>{761c23ba-953e-4447-a4f7-9344bb8ae391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\TrainerFunctions\UI">
+      <UniqueIdentifier>{dbc1db3a-247c-4c69-9308-dd791eebf3dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\MainMenu">
+      <UniqueIdentifier>{a2670b04-31f4-44d1-adf4-bcecb0971893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trainer\Outisde asi file stuff">
+      <UniqueIdentifier>{e324d0c8-dd09-4ff8-b005-d744612d830e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Vehicle\VOptions">
+      <UniqueIdentifier>{77068cee-5f4c-4f79-a6aa-80fc79d54484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Weapons\WOptions">
+      <UniqueIdentifier>{dea9b5f6-6d23-4aaa-a5da-208a62a19b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\PlayerAppearance\Clothing">
+      <UniqueIdentifier>{115f0e03-285d-4822-8128-7f7ec39eb7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\PlayerAppearance\Models">
+      <UniqueIdentifier>{9399ba71-5a28-45c7-a073-0e8a95cfd933}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

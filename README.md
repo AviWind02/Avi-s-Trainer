@@ -1,12 +1,12 @@
-# samples
-trainer V1.1, GTA5 V1.50
+# Trainer
+# trainer V1.1, GTA5 V1.50
 
-hi!!!!!!!!!!!!!!!!!!
+# hi!!!!!!!!!!!!!!!!!!
 
-Download the Avi's Trainer.rar file to start using the trainer
-If you don't have ScriptHookV and dinput8, you can get it from here: http://www.dev-c.com/gtav/scripthookv/
+# Download the Avi's Trainer.rar file to start using the trainer
+# If you don't have ScriptHookV and dinput8, you can get it from here: http://www.dev-c.com/gtav/scripthookv/
 
-drop Avi'sTrainer.asi and Avi'sTrainer folder in the GTA 5 directory.
+# drop Avi'sTrainer.asi and Avi'sTrainer folder in the GTA 5 directory.
 
 Control info:
 Press Insert while in-game to open the trainer. 

@@ -4,10 +4,10 @@
 # hi!!!!!!!!!!!!!!!!!!
 
 
-#Added 
+# Added 
 Added MapMods:
-
-Maze Bank Demolition
+Maze
+Bank Demolition
 Maze Bank Roof Ramp
 Beach Ferris-Ramp
 Airport Mini Ramp

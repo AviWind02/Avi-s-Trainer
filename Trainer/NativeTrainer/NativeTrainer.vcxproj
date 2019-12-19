@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clothing.cpp" />
+    <ClCompile Include="MapMods.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="BlackList.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="..\..\inc\enums.h" />
     <ClInclude Include="..\..\inc\natives.h" />
     <ClInclude Include="..\..\inc\types.h" />
+    <ClInclude Include="MapMods.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Auth.h" />
     <ClInclude Include="BlackList.h" />

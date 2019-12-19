@@ -85,6 +85,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>Submneu\PlayerAppearance\Models</Filter>
     </ClCompile>
+    <ClCompile Include="MapMods.cpp">
+      <Filter>Submneu\MapMods</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\types.h">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Submneu\PlayerAppearance\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMods.h">
+      <Filter>Submneu\MapMods</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +298,9 @@
     </Filter>
     <Filter Include="Submneu\PlayerAppearance\Models">
       <UniqueIdentifier>{9399ba71-5a28-45c7-a073-0e8a95cfd933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\MapMods">
+      <UniqueIdentifier>{b489e17a-a08a-4a7c-bdb3-b7313a789bcd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -67,3 +67,5 @@
 #include "Sponner.h"
 //block
 #include "BlackList.h"
+//mapmods
+#include "MapMods.h"

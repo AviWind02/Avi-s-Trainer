@@ -53,6 +53,7 @@ void main()
 			Menu::MenuOption("Player Black List", Blocksforplayer);
 			Menu::MenuOption("Character Appearance", clothingmenu);
 			Menu::MenuOption("Location Options", TPMenu);
+			Menu::MenuOption("Map Modes", mapmods);// Map Mods for Now see if u can think of map options
 			Menu::MenuOption("Object Spooner", spoonermenu);
 			Menu::MenuOption("Vehicle Options", VehicleStuff);
 			Menu::MenuOption("Weapon Options", Weaponsub);
@@ -64,8 +65,9 @@ void main()
 			Menu::End();
 		}
 		break;
-		//blacklist
 		case Blocksforplayer: {  writreplayer(); Menu::End(); } break;
+		//blacklist
+		case mapmods: {  MapMods(); Menu::End(); } break;
 			//Self
 		case Self_: {  Self(); Menu::End(); } break;
 			//Teleports

@@ -28,10 +28,10 @@
 //UI
 #include "GUI.h"
 //INC Files
-#include "..\..\inc\natives.h"
-#include "..\..\inc\types.h"
-#include "..\..\inc\enums.h"
-#include "..\..\inc\main.h"
+#include "..\inc\natives.h"
+#include "..\inc\types.h"
+#include "..\inc\enums.h"
+#include "..\inc\main.h"
 //Keys
 #include"keyboard.h"
 //function

@@ -8,7 +8,8 @@ int numberKeyboard();
 //GOD MODE
 void GodMode(bool toggle);
 
-
+bool Load(Hash hash, DWORD timeOut);
+void LoadAndChill(Object object);
 
 
 //little one-line function called '$' to convert $TRING into a hash-key:

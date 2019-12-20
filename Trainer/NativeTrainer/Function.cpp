@@ -121,7 +121,26 @@ std::string show_keyboard(char* title_id, char* prepopulated_text)
 	}
 }
 
+bool Load(Hash hash, DWORD timeOut)
+{
+	if (STREAMING::HAS_MODEL_LOADED(hash)) return true;
+	else
+	{
+		STREAMING::REQUEST_MODEL(hash);
 
+		for (timeOut += GetTickCount(); GetTickCount() < timeOut;)
+		{
+			if (STREAMING::HAS_MODEL_LOADED(hash))
+				return true;
+			WAIT(0);
+		}
+		return false;
+	}
+}
+void LoadAndChill(Object object)
+{
+	Load(object, 7500);
+}
 //VECTOR AND FLOAT FUNCTIONS
 Vector3 rot_to_direction(Vector3* rot) {
 	float radiansZ = rot->z * 0.0174532924f;

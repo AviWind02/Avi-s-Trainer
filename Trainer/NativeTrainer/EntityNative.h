@@ -13,3 +13,8 @@ void DrawLightWithRange(Vector3 position, RGB colour, float range, float intensi
 bool does_it_exist(Entity entity);
 Vector3 Get_Position(Entity entity);
 Hash gethash(char* hash);
+Vector3 GetOffsetInWorldCoords(Entity entity, Vector3 offset);
+Vector3 GetOffsetInWorldCoords(Entity entity, float X, float Y, float Z);
+bool isplayerinwater();
+bool isentityinwater(Entity entity);
+Vector3 playerPosition();

@@ -368,6 +368,7 @@ void vehfunctions()
 
 
 	}
+	Entity drive_water_obj;
 
 
 	if (driveonwater)
@@ -375,7 +376,8 @@ void vehfunctions()
 		Player player = PLAYER::PLAYER_ID();
 		Ped playerPed = PLAYER::PLAYER_PED_ID();
 		Vehicle veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-		DWORD model = ENTITY::GET_ENTITY_MODEL(veh);
+		drive_on_water(playerPed, drive_water_obj);
+	/*	DWORD model = ENTITY::GET_ENTITY_MODEL(veh);
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(playerPed, 0);
 		float height = 0;
 		WATER::_SET_CURRENT_INTENSITY(height);
@@ -420,7 +422,7 @@ void vehfunctions()
 				ENTITY::DELETE_ENTITY(&container);
 				WATER::_RESET_CURRENT_INTENSITY();
 			}
-		}
+		}*/
 	}
 	if (invinveh)
 	{

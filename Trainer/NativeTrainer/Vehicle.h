@@ -5,3 +5,4 @@ Vehicle nearbyveh();
 bool mods();
 void deletecar();
 bool isbennys();
+void drive_on_water(Ped ped, Entity& waterobject);

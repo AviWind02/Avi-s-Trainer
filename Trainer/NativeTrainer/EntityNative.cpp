@@ -68,3 +68,33 @@ Hash gethash(char* hash)
 {
 	GAMEPLAY::GET_HASH_KEY(hash);
 }
+Vector3 GetOffsetInWorldCoords(Entity entity, Vector3 offset)
+{
+	return ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entity, offset.x, offset.y, offset.z);
+}
+Vector3 GetOffsetInWorldCoords(Entity entity, float X, float Y, float Z)
+{
+	return ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entity, X, Y, Z);
+}
+bool isplayerinwater()
+{
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	if (ENTITY::IS_ENTITY_IN_WATER(playerPed))
+		return true;
+	else
+       return false;
+
+}
+bool isentityinwater(Entity entity)
+{
+	if (ENTITY::IS_ENTITY_IN_WATER(entity))
+		return true;
+	else
+		return false;
+
+}
+Vector3 playerPosition()
+{
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	return ENTITY::GET_ENTITY_COORDS(playerPed, true);
+}

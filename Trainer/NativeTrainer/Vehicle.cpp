@@ -110,3 +110,48 @@ bool get_vehicle_keyboard_result(uint* outModel)
 
 	return false;
 }
+
+void drive_on_water(Ped ped, Entity& waterobject)
+{
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	
+		if (!ENTITY::DOES_ENTITY_EXIST(waterobject))
+		{
+			Object objModel = 0xC42C019A; // prop_ld_ferris_wheel
+			LoadAndChill(objModel);
+			Vector3& Pos = GetOffsetInWorldCoords(playerPed, 0, 4.0f, 0);
+			float whh = 0.0f;
+			if (WATER::GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
+			{
+				RequestControlOfEnt(playerPed);
+				ENTITY::SET_ENTITY_COORDS(playerPed, Pos.x, Pos.y, whh, 0, 0, 0, 1);
+			}
+			waterobject = OBJECT::CREATE_OBJECT(objModel, Pos.x, Pos.y, whh - 4.0f, 1, 1, 1);
+			NETWORK::SET_NETWORK_ID_CAN_MIGRATE(NETWORK::OBJ_TO_NET(waterobject), ped != playerPed);
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, Pos.x, Pos.y, whh, 0, 0, 0);
+			ENTITY::SET_ENTITY_ROTATION(waterobject, 0, 90, 0, 2, 1);
+			ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
+			//Game::Print::PrintBottomCentre("~b~Note:~s~ Enable again if water level is incorrect/changes.");
+			WAIT(0);
+			return;
+		}
+
+		Vector3& myPos = playerPosition();
+		Vector3& Pos = ENTITY::GET_ENTITY_COORDS(waterobject, 1);
+
+		if (isplayerinwater())
+		{
+			float whh = 0.0f;
+			if (WATER::GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
+			{
+				ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, Pos.x, Pos.y, whh, 0, 0, 0);
+			}
+		}
+
+		if (!NETWORK::NETWORK_HAS_CONTROL_OF_ENTITY(waterobject))
+			NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(waterobject);
+		ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, myPos.x, myPos.y, Pos.z, 1, 1, 1);
+		ENTITY::SET_ENTITY_ROTATION(waterobject, 180.0f, 90.0f, 180.0f, 2, 1);
+		set_entity_as_visible(waterobject, false);
+		ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
+}

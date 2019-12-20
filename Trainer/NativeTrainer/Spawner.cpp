@@ -117,6 +117,7 @@ void By_DLC()
 	Menu::MenuOption("Diamond Casino", dlc148);
 
 }
+
 void spawner()
 {
 	Menu::Title("");
@@ -366,8 +367,8 @@ void SUVspinSpawner()//done
 	 Menu::SpawnOption("Gallivanter Baller", "BALLER");
 	 Menu::SpawnOption("Gallivanter Baller(Second Generation)", "BALLER2");
 	 Menu::SpawnOption("Baller LE", "BALLER3");
-	 Menu::SpawnOption("Baller LE(Armored)", "BALLER4");
-	 Menu::SpawnOption("Baller LE LWB", "BALLER5");
+	 Menu::SpawnOption("Baller LE(Armored)", "BALLER5");
+	 Menu::SpawnOption("Baller LE LWB", "BALLER4");
 	 Menu::SpawnOption("Pegassi Toros", "TOROS");
 	 Menu::SpawnOption("Baller LE LWB(Armored)", "BALLER6");
 	 Menu::SpawnOption("Karin BeeJay XL", "BJXL");
@@ -1106,8 +1107,8 @@ void Excutives_and_other_Criminals()
 {
 	Menu::Title("");
 	Menu::Subtitle("Excutives and other Criminals");
-	 Menu::SpawnOption("Baller LE(Armored)", "BALLER4");
-	 Menu::SpawnOption("Baller LE LWB", "BALLER5");
+	 Menu::SpawnOption("Baller LE(Armored)", "BALLER5");
+	 Menu::SpawnOption("Baller LE LWB", "BALLER4");
 	 Menu::SpawnOption("Baller LE LWB(Armored)", "BALLER6");
 	 Menu::SpawnOption("Baller LE", "BALLER3");
 	 Menu::SpawnOption("Declasse Mamba", "MAMBA");

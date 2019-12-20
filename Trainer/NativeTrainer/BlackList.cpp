@@ -5,6 +5,15 @@
 using namespace std;
 bool blockedpler = false;
 void KickPlayer(int i);
+
+void saveoption()
+{
+	if (Menu::Option("Save"))
+	{
+
+
+	}
+}
 void readplayer()
 {
 

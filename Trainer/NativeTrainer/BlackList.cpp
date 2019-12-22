@@ -70,21 +70,6 @@ void KickPlayer(int i)// kicks
 	unsigned int Bit = (1 << i);
 	int kick_1[4] = { 2870072008, Bit, 0, 0 };
 	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_1, 4, Bit);
-	int kick_2[4] = { 1073025268, Bit, 0, 0 };
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_2, 4, Bit);
-	int kick_3[4] = { -1264063129, Bit, 0, 0 };
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_3, 4, Bit);
-	int kick_sp81[4] = { -568609240, Bit, 0, 0 }; 
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_sp81, 4, Bit);
-	int kick_sp8112[4] = { -418126478, Bit, 0, 0 };  
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_sp8112, 4, Bit);
-	int kick_sp8113[4] = { -891421850, Bit, 0, 0 };  
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_sp8113, 4, Bit);
-	int kick_sp8114[4] = { 183152618, Bit, 0, 0 };  
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_sp8114, 4, Bit);
-	int kick_sp8115[4] = { -1825000322, Bit, 0, 0 };  
-	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_sp8115, 4, Bit);
-	int kick_sp8116[4] = { 1054601398, Bit, 0, 0 }; 
 	int infiniteload[9] = { 1000837481, Bit, 0, -1, 1, 115, 0, 0, 0 };
 	SCRIPT::TRIGGER_SCRIPT_EVENT(1, infiniteload, 9, Bit);// idk why not
 }

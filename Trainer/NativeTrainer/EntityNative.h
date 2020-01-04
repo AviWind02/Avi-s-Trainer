@@ -1,5 +1,7 @@
 #pragma once
 void set_entity_invincible(Entity entity, bool toggle);
+void set_entity_invincible(Entity entity);
+void set_entity_pos_dead(Entity entity, bool toggle);
 void set_entity_dynamic(Entity entity, bool toggle);
 void set_entity_health(Entity entity, int health);
 void set_entity_alpha(Entity entity, int Alpha);
@@ -12,9 +14,9 @@ void set_entity_gravity(Entity entity, bool toggle);
 void DrawLightWithRange(Vector3 position, RGB colour, float range, float intensity);
 bool does_it_exist(Entity entity);
 Vector3 Get_Position(Entity entity);
-Hash gethash(char* hash);
 Vector3 GetOffsetInWorldCoords(Entity entity, Vector3 offset);
 Vector3 GetOffsetInWorldCoords(Entity entity, float X, float Y, float Z);
 bool isplayerinwater();
 bool isentityinwater(Entity entity);
 Vector3 playerPosition();
+Hash key(char* key);

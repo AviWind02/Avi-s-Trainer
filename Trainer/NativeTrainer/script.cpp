@@ -1,23 +1,4 @@
 #include"MAIN.h"
-void camtest()
-{
-	/*
-	step 1 render a new cam works
-	step 2 move the cam
-	*/
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	Vector3 me = ENTITY::GET_ENTITY_COORDS(playerPed, true);
-	Any cam = CAM::CREATE_CAMERA(26379945, false);
-	CAM::SET_CAM_ACTIVE(cam, true);
-	CAM::RENDER_SCRIPT_CAMS(true, false, 3000, true, false);
-	CAM::SET_CAM_COORD(cam, me.x, me.y, me.z + 50);
-
-	// this should be somewhere else but 
-	Cam freecam = CAM::GET_RENDERING_CAM();
-	Menu::Float("Z", me.z, 999999999, -999999999999);
-	CAM::SET_CAM_COORD(cam, me.x, me.y, me.z + 50);
-
-}
 #pragma warning(disable : 4244 4305) // double <-> float conversions
 void update()//update function/loop
 {
@@ -47,24 +28,26 @@ void main()
 		{
 
 			Menu::Title("");
-			Menu::Subtitle("~r~Made ~w~in ~r~Canada V1.1");
+			Menu::Subtitle("~r~Made ~w~in ~r~Canada V1.0.2");
 			Menu::MenuOption("Self Options", Self_);
 			Menu::MenuOption("Player Model", Modelmenu);
 			Menu::MenuOption("Player Black List", Blocksforplayer);
 			Menu::MenuOption("Character Appearance", clothingmenu);
 			Menu::MenuOption("Location Options", TPMenu);
-			Menu::MenuOption("Map Modes", mapmods);// Map Mods for Now see if u can think of map options
+			Menu::MenuOption("Map Mods", mapmods);// Map Mods for Now see if u can think of map options
 			Menu::MenuOption("Object Spooner", spoonermenu);
 			Menu::MenuOption("Vehicle Options", VehicleStuff);
 			Menu::MenuOption("Weapon Options", Weaponsub);
 			Menu::MenuOption("World/Misc Options", Menufunctions);
 			Menu::MenuOption("Settings", settingss);
+			//Menu::MenuOption("Dev Stuff(Beta)", dev);
 			//Menu::tick("tick test");
 			//Menu::info("ooo info");
 			open = false;
 			Menu::End();
 		}
 		break;
+		case dev: { devwork();  Menu::End();  } break;
 		case Blocksforplayer: {  writreplayer(); Menu::End(); } break;
 		//blacklist
 		case mapmods: {  MapMods(); Menu::End(); } break;
@@ -124,6 +107,7 @@ void main()
 		case Bennys_update_: { Bennys_update(); Menu::End(); } break;
 		case Finance_and_Felony_: { Finance_and_Felony(); Menu::End(); } break;
 		case dlc148: { dlccars(); }  break;
+		case dlc150: { dimhistcars(); }  break;
 			//Normal
 		case vehspawnersub: { spawner(); Menu::End(); } break;
 		case Super: { Superr(); Menu::End(); } break;
@@ -150,7 +134,7 @@ void main()
 		case Utility: { UtilityspinSpawner(); Menu::End(); } break;
 			//Customs
 		case LSCWW: { LSCWwW(); Menu::End(); } break;//menu
-		case modlsc: { LSC_vehicle_Mods(); Menu::End(); } break;//LSC mods Menu
+		case modlsc: { LSC_vehicle_Mods(); Menu::End(); } break;//LSC mods Men
 		case fbumper: { fbumpear(); Menu::End(); } break;//LSC Mods
 		case Bennysmodlsc: { Bennys_vehicle_Mods(); Menu::End(); } break;//Bennys Mod
 		case windindowoptions: { Window_Options(); Menu::End(); } break;
@@ -420,6 +404,21 @@ void main()
 		case clothingmenu: { colthing(); Menu::End(); } break;
 		case Modelmenu: { ModelMenu(); Menu::End(); } break;
 		case AModel: { AnimalModels(); Menu::End(); } break;
+		case AmbientFemale_: { AmbientFemale(); Menu::End(); } break;
+		case AmbientMale_: { AmbientMale(); Menu::End(); } break;
+		case Cutscene_: { Cutscene(); Menu::End(); } break;
+		case GangFemale_: { GangFemale(); Menu::End(); } break;
+		case GangMale_: { GangMale(); Menu::End(); } break;
+		case Story_: { Story(); Menu::End(); } break;
+		case Multiplayer_: { Multiplayer(); Menu::End(); } break;
+		case ScenarioFemale_: { ScenarioFemale(); Menu::End(); } break;
+		case ScenarioMale_: { ScenarioMale(); Menu::End(); } break;
+		case StoryScenarioFemale_: { StoryScenarioFemale(); Menu::End(); } break;
+		case StoryScenarioMale_: { StoryScenarioMale(); Menu::End(); } break;
+		case other_: { other(); Menu::End(); } break;
+
+
+			// mad ped 
 
 
 
@@ -437,16 +436,10 @@ void main()
 
 
 
-
-
-			////case mapmods: { MapMods(); Menu::End(); } break;
-
-
-
-
+			//case mapmods: { MapMods(); Menu::End(); } break;
 			//case Makeupmenu: { makup();  Menu::End(); } break;
-			////case plasticmenu: { Plastic_face_functions(); Menu::End(); } break;
-			////case playermenu: {  mainplayermenu(); Menu::End(); } break;
+			//case plasticmenu: { Plastic_face_functions(); Menu::End(); } break;
+			//case playermenu: {  mainplayermenu(); Menu::End(); } break;
 
 
 

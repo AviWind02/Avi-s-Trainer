@@ -69,3 +69,7 @@
 #include "BlackList.h"
 //mapmods
 #include "MapMods.h"
+//MISSION
+#include "missionhelp.h"
+//dev
+#include "dev.h"

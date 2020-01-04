@@ -12,7 +12,12 @@ void fonts()
 	if (Menu::Option("Wing Dings")) { Menu::Settings::optionText.f = 3; }
 	if (Menu::Option("Pricedown")) { Menu::Settings::optionText.f = 7; }
 }
-
+int NumberKeyboard() {
+	GAMEPLAY::DISPLAY_ONSCREEN_KEYBOARD(1, "", "", "", "", "", "", 10);
+	while (GAMEPLAY::UPDATE_ONSCREEN_KEYBOARD() == 0) WAIT(0);
+	if (!GAMEPLAY::GET_ONSCREEN_KEYBOARD_RESULT()) return 0;
+	return atof(GAMEPLAY::GET_ONSCREEN_KEYBOARD_RESULT());
+}
 //bool Menu::Settings::Sonny = false;
 //void Rainbowmenu()
 //{
@@ -186,6 +191,7 @@ void settingfunctionss()
 
 
 }
+float fl;
 void setting()
 {
 	Menu::Title("");
@@ -196,10 +202,31 @@ void setting()
 	Menu::MenuOption("Lines", scroller);
 	Menu::MenuOption("Text", text);
 	Menu::Break("Menu POS");
+	if (Menu::Option("MenuX plus")) {
+		if (Menu::Settings::menuX < 0.81f) Menu::Settings::menuX += 0.01f;
+	}
+	if (Menu::Option("MenuX minus")) {
+		if (Menu::Settings::menuX > 0.17f) Menu::Settings::menuX -= 0.01f;
+	}
 	if (Menu::Option("Left")) { Menu::Settings::menuX = 0.17f; }
 	if (Menu::Option("Center")) { Menu::Settings::menuX = 0.498f; }
 	if (Menu::Option("Right")) { Menu::Settings::menuX = 0.883f; }
 	if (Menu::Option("Beside Map")) { Menu::Settings::menuX = 0.294f; }
+	Menu::Break("Menu Delay");
+	if (Menu::Int("Scroll Delay", Menu::Settings::keyPressDelay2, 1, 200))
+	{
+		if (IsKeyPressed(VK_NUMPAD5) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, ControlFrontendAccept)) {
+			Menu::Settings::keyPressDelay2 = NumberKeyboard();
+		}
+	}
+	if (Menu::Int("Int/Float Delay", Menu::Settings::keyPressDelay3, 1, 200))
+	{
+		if (IsKeyPressed(VK_NUMPAD5) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, ControlFrontendAccept)) {
+			Menu::Settings::keyPressDelay3 = NumberKeyboard();
+		}
+	}
+	Menu::Break("--------");
+	if (Menu::Option("Exit Game")) exit(0);
 
 
 

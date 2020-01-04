@@ -46,8 +46,6 @@ void OffRoadspinSpawner();
 void PlanesspinSpawner();
 void SedansspinSpawner();
 void ServicespinSpawner();
-void dlccars();
-
 void By_DLC();
 //dlc dort by list
 void BeachBum();
@@ -66,6 +64,7 @@ void Excutives_and_other_Criminals();
 void Valentine();
 void Bennys_update();
 void Finance_and_Felony();
-
+void dlccars();//1.48 or 9 idk
+void dimhistcars(); // 1.50
 
 #pragma once

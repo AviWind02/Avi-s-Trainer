@@ -26,7 +26,9 @@ bool dispatch = false; bool flything = false;
 bool outofcontroll = false;
 bool kill, hell = false;
 bool threedwaypoint = true; 
-float scaleX = .1, scaleY = .1, scaleZ = 45;
+bool emp = false;
+bool madpeds = false;
+float scaleX = 50, scaleY = 50, scaleZ = 999999999;// Z 999999999 just to be safe!!!
 float world__speed;
 float train_speed;
 float train_cruise_speed;
@@ -119,14 +121,47 @@ void MaxUpgrades(uint veh)
 	VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
 	VEHICLE::SET_VEHICLE_TYRE_SMOKE_COLOR(veh, 0, 255, 0);
 }
-
+int rw = 255, gw = 0, bw = 0;
+void RGBFadee()
+{
+	if (rw > 0 && bw == 0) {
+		rw--;
+		gw++;
+	}
+	if (gw > 0 && rw == 0) {
+		gw--;
+		bw++;
+	}
+	if (bw > 0 && gw == 0) {
+		rw++;
+		bw--;
+	}
+}
+int  teleports_outside_door_kept_closed = 16;
 void world_misc_functions()
 {
+	if (madpeds)
+	{
+		Hash firingPattern = key("FIRING_PATTERN_FULL_AUTO");
+		Player playerPed = PLAYER::PLAYER_PED_ID();
+		Vector3 pos = Get_Position(playerPed);
+		int Trick = rndInt(0, 2);
+		if (Trick == 0)
+		PED::CREATE_RANDOM_PED(pos.x + rndInt(1, 200), pos.y + rndInt(1, 200), pos.z + rndInt(1, 200));// there may not be a lot near you 
+		//AI::TASK_EVERYONE_LEAVE_VEHICLE(nearbyveh());// if in veh idk
+		AI::TASK_VEHICLE_CHASE(nearbypeds(), playerPed);//boo
+		AI::TASK_LEAVE_VEHICLE(nearbypeds(), nearbyveh(), teleports_outside_door_kept_closed);
+		WEAPON::GIVE_WEAPON_TO_PED(nearbypeds(), GAMEPLAY::GET_HASH_KEY("WEAPON_RAYCARBINE"), 9999, 1, 1);
+		AI::TASK_SHOOT_AT_ENTITY(nearbypeds(), playerPed, 500000, firingPattern);// may not work for long
+	}
 	if (threedwaypoint)
 	{
-		GRAPHICS::DRAW_MARKER(2, get_blip_marker().x, get_blip_marker().y,
-				get_blip_marker().z - 1, 0, 0, 0, 0, 0, 0, scaleX, scaleY, scaleZ,
-				255, 0, 0, 255, 0, 0, 2, 0, 0, 0, 0);
+		RGBFadee();
+		Player playerPed = PLAYER::PLAYER_PED_ID();
+		Vector3 pos = get_blip_marker();
+		if(waypoint)
+		GRAPHICS::DRAW_MARKER(1, pos.x, pos.y,
+			pos.z - 1, 0, 0, 0, 0, 0, 0, scaleX, scaleY, scaleZ, rw, gw, bw, 255, 0, 0, 2, 0, 0, 0, 0);
 	}
 	if (grav)
 	{
@@ -140,6 +175,19 @@ void world_misc_functions()
 		PED::SET_PED_GRAVITY(playerPed, false);
 
 	}
+	if (emp)
+	{
+		GRAPHICS::_SET_BLACKOUT(true);
+		RequestControlOfEnt(nearbyveh());
+		int Trick = rndInt(0, 5);
+		if (Trick == 0)
+			VEHICLE::SET_VEHICLE_ENGINE_ON(nearbyveh(), false, true, false);
+		else
+			VEHICLE::SET_VEHICLE_OUT_OF_CONTROL(nearbyveh(), false, false);
+
+	}
+	else
+		GRAPHICS::_SET_BLACKOUT(false);
 
 	if (_BOATS) { VEHICLE::SET_RANDOM_BOATS(true); }
 	if (_TRUCKS) { VEHICLE::SET_GARBAGE_TRUCKS(true); }
@@ -276,13 +324,12 @@ void world_misc_functions()
 		int Objhash = GAMEPLAY::GET_HASH_KEY("PROP_ASTEROID_01");
 		Vector3 Myc = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		float MyCR = (Myc.x, Myc.y, Myc.z);
-		float Random = GAMEPLAY::GET_RANDOM_FLOAT_IN_RANGE(MyCR, 100.0);
+		float Random = GAMEPLAY::GET_RANDOM_FLOAT_IN_RANGE(MyCR, 10000.0);
 		if (!STREAMING::HAS_MODEL_LOADED(Objhash))
 			STREAMING::REQUEST_MODEL(Objhash);
 		else
 		{
-			Vector3 coords = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER::PLAYER_PED_ID(), 0.0f, Random, 0.0f);
-			ObjMeteor = OBJECT::CREATE_OBJECT(Objhash, Myc.x, Myc.y, Myc.z + 100, 1, 1, 1);
+			ObjMeteor = OBJECT::CREATE_OBJECT(Objhash, Myc.x + Random, Myc.y + Random, Myc.z + 100 + Random, 1, 1, 1);
 			if (ENTITY::DOES_ENTITY_EXIST(ObjMeteor))
 			{
 				ENTITY::SET_ENTITY_COLLISION(ObjMeteor, 1, 1);
@@ -667,9 +714,11 @@ void misc_world_Sub()
 	Menu::MenuOption("Time", worldTime);
 	Menu::MenuOption("Clear", Worldclear);
 	Menu::MenuOption("Radio", worldradio);
+	Menu::Toggle("EMP", emp);
+	Menu::Toggle("Mady Pedy", madpeds);
 	Menu::Toggle("World War 3", brecklose);
 	Menu::Toggle("Blow up Ped Heads", kill);
 	Menu::Toggle("Show Player coordinates", showcords);
-	//Menu::Toggle("3D Waypoint", threedwaypoint);
-	//Menu::Toggle("No phone", nophone); 
+	Menu::Toggle("3D Waypoint", threedwaypoint);
+	Menu::Toggle("Flything", flything); 
 }

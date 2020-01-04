@@ -484,7 +484,25 @@ bool Menu::MenuOption(const char* option, SubMenus newSub)
 	return false;
 }
 
+bool Menu::MenuOption(const char* option, SubMenus newSub, bool toggle)
+{
+	if (toggle)
+	{
+		Option(option);
+		RGBAF arrow2{ 255, 0, 0, 255, 3 };
+		bool onThis = Settings::currentOption == Settings::optionCount ? true : false;
+		if (Settings::currentOption <= Settings::maxVisOptions && Settings::optionCount <= Settings::maxVisOptions)
+			Drawing::Text("2", onThis ? arrow2 : Settings::arrow, { Settings::menuX + 0.099f, Settings::optionCount * 0.035f + 0.128f }, { 0.25f, 0.25f }, true);
+		else if (Settings::optionCount > Settings::currentOption - Settings::maxVisOptions && Settings::optionCount <= Settings::currentOption)
+			Drawing::Text("2", onThis ? arrow2 : Settings::arrow, { Settings::menuX + 0.099f, (Settings::optionCount - (Settings::currentOption - 16)) * 0.035f + 0.12f }, { 0.25f, 0.25f }, true);
 
+		if (Settings::optionCount == Settings::currentOption && Settings::selectPressed) {
+			MenuLevelHandler::MoveMenu(newSub);
+			return true;
+		}
+		return false;
+	}
+}
 void Menu::PlayerOption(int i) {
 	if (Menu::Option(PLAYER::GET_PLAYER_NAME(i))) {
 		selectedPlayer = i;
@@ -537,7 +555,7 @@ bool Menu::SpawnOption(char* option, char* carname)
 				ENTITY::DELETE_ENTITY(&Veh);
 			}
 
-			if (IsKeyPressed(VK_NUMPAD5) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, ControlFrontendAccept)) SpawnVeh2(carname);
+			//if (IsKeyPressed(VK_NUMPAD5) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, ControlFrontendAccept)) SpawnVeh2(carname);
 			STREAMING::REQUEST_MODEL(hash);
 			if (!STREAMING::HAS_MODEL_LOADED(hash)) goto skipTick;
 
@@ -778,7 +796,7 @@ void PlaySoundFrontend_default2(char* sound_name)
 	AUDIO::PLAY_SOUND_FRONTEND(-1, sound_name, "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 0);
 }
 
-int Menu::Settings::keyPressDelay = 200;
+int Menu::Settings::keyPressDelay = 400;
 int Menu::Settings::keyPressPreviousTick = GetTickCount();
 int Menu::Settings::keyPressDelay2 = 100;
 int Menu::Settings::keyPressPreviousTick2 = GetTickCount();

@@ -4,6 +4,14 @@ void set_entity_invincible(Entity entity, bool toggle)
 {
 	ENTITY::SET_ENTITY_INVINCIBLE(entity, toggle);
 }
+void set_entity_invincible(Entity entity)
+{
+	ENTITY::SET_ENTITY_INVINCIBLE(entity, true);
+}
+void set_entity_pos_dead(Entity entity, bool toggle)
+{
+	ENTITY::FREEZE_ENTITY_POSITION(entity, toggle);
+}
 void set_entity_dynamic(Entity entity, bool toggle)
 {
 	ENTITY::SET_ENTITY_DYNAMIC(entity, toggle);
@@ -64,10 +72,6 @@ Vector3 Get_Position(Entity entity)
 {
 	return ENTITY::GET_ENTITY_COORDS(entity, NULL);
 }
-Hash gethash(char* hash)
-{
-	GAMEPLAY::GET_HASH_KEY(hash);
-}
 Vector3 GetOffsetInWorldCoords(Entity entity, Vector3 offset)
 {
 	return ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(entity, offset.x, offset.y, offset.z);
@@ -97,4 +101,8 @@ Vector3 playerPosition()
 {
 	Ped playerPed = PLAYER::PLAYER_PED_ID();
 	return ENTITY::GET_ENTITY_COORDS(playerPed, true);
+}
+Hash key(char* key)
+{
+	return GAMEPLAY::GET_HASH_KEY(key);
 }

@@ -5,7 +5,7 @@
 //=================
 // PED FUNCTIONS
 //=================
-void set_ped_seatbelt_on(Ped ped, bool toggle)
+void putonseatbelt(Ped ped, bool toggle)
 {
 	if (toggle)
 	{
@@ -43,6 +43,8 @@ Ped nearbypeds()
 		}
 	}
 }
+
+
 void check_player_model()
 {
 	// common variables
@@ -57,7 +59,7 @@ void check_player_model()
 			model != GAMEPLAY::GET_HASH_KEY("player_one") &&
 			model != GAMEPLAY::GET_HASH_KEY("player_two"))
 		{
-			notifyMap("turning to ~g~normal~w~..");
+			notifyBottom("turning to ~g~normal~w~..");
 			WAIT(1000);
 
 			model = GAMEPLAY::GET_HASH_KEY("player_zero");

@@ -168,230 +168,7 @@ void LSCfunctions()
 	}
 	else
 		VEHICLE::_SET_VEHICLE_ENGINE_POWER_MULTIPLIER(veh, eingp);
-	if (l1)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 11, 0, 0);
-		if (l2) { l2 = false; }
-		if (l3) { l3 = false; }
-		if (l4) { l4 = false; }
-	}
-	if (l2)
-	{
 
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 11, 1, 0);
-		if (l1) { l1 = false; }
-		if (l3) { l3 = false; }
-		if (l4) { l4 = false; }
-	}
-	if (l3)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 11, 2, 0);
-		if (l2) { l2 = false; }
-		if (l1) { l1 = false; }
-		if (l4) { l4 = false; }
-	}
-	if (l4)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 11, 3, 0);
-		if (l2) { l2 = false; }
-		if (l3) { l3 = false; }
-		if (l1) { l1 = false; }
-	}
-	//Brakes
-	if (b1)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 12, -1, 0);
-		//if (b1) { b1 = false; }
-		if (b2) { b2 = false; }
-		if (b3) { b3 = false; }
-		if (b4) { b4 = false; }
-	}
-	if (b2)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 12, 0, 0);
-		if (b1) { b1 = false; }
-		//if (b2) { b2 = false; }
-		if (b3) { b3 = false; }
-		if (b4) { b4 = false; }
-	}
-	if (b3)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 12, 1, 0);
-		if (b1) { b1 = false; }
-		if (b2) { b2 = false; }
-		//if (b3) { b3 = false; }
-		if (b4) { b4 = false; }
-	}
-	if (b4)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 12, 2, 0);
-		if (b1) { b1 = false; }
-		if (b2) { b2 = false; }
-		if (b3) { b3 = false; }
-		//if (b4) { b4 = false; }
-	}
-	//Transmission 
-	if (t1)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 13, -1, 0);
-		//if (t1) { t1 = false; }
-		if (t2) { t2 = false; }
-		if (t3) { t3 = false; }
-		if (t4) { t4 = false; }
-
-	}
-	if (t2)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 13, 0, 0);
-		if (t1) { t1 = false; }
-		//if (t2) { t2 = false; }
-		if (t3) { t3 = false; }
-		if (t4) { t4 = false; }
-
-	}
-	if (t3)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 13, 1, 0);
-		if (t1) { t1 = false; }
-		if (t2) { t2 = false; }
-		//if (t3) { t3 = false; }
-		if (t4) { t4 = false; }
-
-	}
-	if (t4)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 13, 2, 0);
-		if (t1) { t1 = false; }
-		if (t2) { t2 = false; }
-		if (t3) { t3 = false; }
-		//if (t4) { t4 = false; }
-
-	}
-	//Suspension 
-	if (s1)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 15, -1, 0);
-		//if (s1) { s1 = false; }
-		if (s2) { s2 = false; }
-		if (s3) { s3 = false; }
-		if (s4) { s4 = false; }
-		if (s5) { s5 = false; }
-
-	}
-	if (s2)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 15, 0, 0);
-		if (s1) { s1 = false; }
-		//if (s2) { s2 = false; }
-		if (s3) { s3 = false; }
-		if (s4) { s4 = false; }
-		if (s5) { s5 = false; }
-	}
-	if (s3)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 15, 1, 0);
-		if (s1) { s1 = false; }
-		if (s2) { s2 = false; }
-		//if (s3) { s3 = false; }
-		if (s4) { s4 = false; }
-		if (s5) { s5 = false; }
-	}
-	if (s4)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 15, 2, 0);
-		if (s1) { s1 = false; }
-		if (s2) { s2 = false; }
-		if (s3) { s3 = false; }
-		//if (s4) { s4 = false; }
-		if (s5) { s5 = false; }
-	}
-	if (s5)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 15, 3, 0);
-		if (s1) { s1 = false; }
-		if (s2) { s2 = false; }
-		if (s3) { s3 = false; }
-		if (s4) { s4 = false; }
-		//if (s5) { s5 = false; }
-	}
-	//Armour 
-	if (a1)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, -1, 0);
-		//if (s1) { s1 = false; }
-		if (a2) { a2 = false; }
-		if (a3) { a3 = false; }
-		if (a4) { a4 = false; }
-		if (a5) { a5 = false; }
-	}
-	if (a2)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, 0, 0);
-		if (a1) { a1 = false; }
-		//if (s2) { s2 = false; }
-		if (a3) { a3 = false; }
-		if (a4) { a4 = false; }
-		if (a5) { a5 = false; }
-	}
-	if (a3)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, 1, 0);
-		if (a1) { a1 = false; }
-		if (a2) { a2 = false; }
-		//if (s3) {s3 = false; }
-		if (a4) { a4 = false; }
-		if (a5) { a5 = false; }
-	}
-	if (a4)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, 2, 0);
-		if (a1) { a1 = false; }
-		if (a2) { a2 = false; }
-		if (a3) { a3 = false; }
-		//if (s4) { s4 = false; }
-		if (a5) { a5 = false; }
-	}
-	if (a5)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, 3, 0);
-		if (a1) { a1 = false; }
-		if (a2) { a2 = false; }
-		if (a3) { a3 = false; }
-		if (a4) { a4 = false; }
-		//if (s5) { s5 = false; }
-	}
-	if (a6)
-	{
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_MOD(veh, 16, 3, 0);
-		if (a1) { a1 = false; }
-		if (a2) { a2 = false; }
-		if (a3) { a3 = false; }
-		if (a4) { a4 = false; }
-		if (s5) { s5 = false; }
-	}
 
 }
 
@@ -535,27 +312,16 @@ void FACTIONbich()
 	}
 }
 bool lscopen = true;
-void checkscustom()
-{
-	if (isbennys())
-	{
-		Menu::MenuOption("Bennys Vehicle Upgrades", Bennysmodlsc);
-		Menu::MenuOption("Interior", inside);
-	}
-	if (mods())
-	{
-		Menu::MenuOption("Vehicle Upgrades", modlsc);
-	}
-
-}
+void upgradeabletobennys();
 void LSCWwW()
 {
-	if (lscopen) notifyBottom("You may Need to use max upgrade before you can use custom mods");
+	//if (lscopen) notifyBottom("You may Need to use max upgrade before you can use custom mods");
 	Vehicle vehicle = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), false);
 
 	Menu::Title("");
 	Menu::Subtitle("Avi's Customs");
-	if (Menu::Option("Max Upgrade")) {
+	if (Menu::Option("Max Upgrade")) 
+	{
 		{
 			lscopen = false;
 			a6, t4, b4, l4, s4, a6, nopooptries = true;
@@ -570,11 +336,21 @@ void LSCWwW()
 	}
 	VEHICLE::SET_VEHICLE_MOD_KIT(vehicle, 0);
 	VEHICLE::SET_VEHICLE_MOD(vehicle, 16, 3, 0);
+	upgradeabletobennys();
+	Menu::MenuOption("Benny's Vehicle Upgrades", Bennysmodlsc, isbennys());
 	Menu::MenuOption("Armour Upgrades", Armour);
 	Menu::MenuOption("Performance Upgrades", performance);
 	Menu::MenuOption("Light Upgrades", Light);
 	Menu::MenuOption("Plate Upgrades", plateeee);
-	checkscustom();
+	//Menu::MenuOption("Vehicle Upgrades", modlsc, islsc());
+	for (int i = 0; i < 10; i++) // 0 to 10 here since those are the simple mods
+	{
+		if (VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, i) > 0)
+		{
+			Menu::MenuOption(VEHICLE::GET_MOD_SLOT_NAME(vehicle, i), fbumper) ? Selectedmod = i : NULL;
+
+		}
+	}
 	Menu::MenuOption("Colours/Liverys", Resprayss);
 	Menu::MenuOption("Window Options/Upgrades", windindowoptions);
 	Menu::MenuOption("Wheels/Rims", Wheels);
@@ -584,36 +360,37 @@ void Armours()
 	Menu::Title("");
 	Menu::Subtitle("Armor");
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_ID());
-	Menu::Toggle("None", a1);
-	Menu::Toggle("Armor Upgrade 20%", a2);
-	Menu::Toggle("Armor Upgrade 40%", a3);
-	Menu::Toggle("Armor Upgrade 60%", a4);
-	Menu::Toggle("Armor Upgrade 80%", a5);
-	Menu::Toggle("Armor Upgrade 100%", a6);
+	setvehmod("None", 16, -1);
+	setvehmod("Armor Upgrade 20%", 16, 0);
+	setvehmod("Armor Upgrade 40%", 16, 1);
+	setvehmod("Armor Upgrade 60%", 16, 2);
+	setvehmod("Armor Upgrade 80%", 16, 3);
+	setvehmod("Armor Upgrade 100%", 16, 4);
 	Menu::Toggle("bulletproof tires", nopooptries);
-
 	lscopen = false;
-
-
 }
-void Bennys_vehicle_Mods()
+void upgradeabletobennys()
 {
 	Hash carhash = ENTITY::GET_ENTITY_MODEL(PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID()));
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Menu::Title("");
-	Menu::Subtitle("Bennys");
 	if (carhash == 0xC1E908D2 || carhash == 0xD756460C || carhash == 0x14D69010 || carhash == 0xC1AE4D16 || carhash == 0x25676EAF || carhash == 0x3DA47243 || carhash == 0xED7EADA4 || carhash == 0x1F52A43F || carhash == 0x85E8E76B || carhash == 0xBB6B404F || carhash == 0x9B909C94 || carhash == 0x2B7F9DE3 || carhash == 0x1BB290BC || carhash == 0xCA62927A || carhash == 0x1F3766E3 || carhash == 0x39DA2754 || carhash == 0x39DA2754 || carhash == 0x706E2B40 || carhash == 0xF1B44F44)
 	{
-		if (Menu::Option("Upgrade Bennys car"))
+		if (Menu::Option("Upgrade to Benny's Vehicle"))
 		{
 			bennys_upgrade();
 		}
 	}
 	else if (carhash == 0x81A9CDDF)// this is the big wheel car add a ask option // faction make a check for it and if its there put a case for it
 	{
-		Menu::MenuOption("Upgrade Bennys car", fcar);
+		Menu::MenuOption("Upgrade to Benny's Vehicle", fcar);
 	}
+	
+}
+void Bennys_vehicle_Mods()
+{
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
+	Menu::Title("");
+	Menu::Subtitle("Bennys");
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Aerials_mod) > 0) Menu::MenuOption("Aerials", Aerials);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, AirFilter) > 0) Menu::MenuOption("Engine Fliters", Fliters);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Struts_mod) > 0) Menu::MenuOption("Strut Brace", Struts);
@@ -628,11 +405,7 @@ void LSC_vehicle_Mods()
 {
 	Menu::Title("");
 	Menu::Subtitle("Avi's Customs");
-
 	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	Player player = PLAYER::PLAYER_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
 	for (int i = 0; i < 10; i++) // 0 to 10 here since those are the simple not null mods 
 	{
@@ -642,8 +415,6 @@ void LSC_vehicle_Mods()
 
 		}
 	}
-	lscopen = false;
-
 }
 void fbumpear()// grabs  all mods
 {
@@ -695,10 +466,10 @@ void engineEMS()
 	Menu::Title("");
 	Menu::Subtitle("EMS Upgrade");
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_ID());
-	Menu::Toggle("EMS Upgrade, Level 1", l1);
-	Menu::Toggle("EMS Upgrade, Level 2", l2);
-	Menu::Toggle("EMS Upgrade, Level 3", l3);
-	Menu::Toggle("EMS Upgrade, Level 4", l4);
+	setvehmod("EMS Upgrade, Level 1", 11, 0);
+	setvehmod("EMS Upgrade, Level 2", 11, 1);
+	setvehmod("EMS Upgrade, Level 3", 11, 2);
+	setvehmod("EMS Upgrade, Level 4", 11, 3);
 	lscopen = false;
 
 }
@@ -736,11 +507,10 @@ void BrakesEMS()
 {
 	Menu::Title("");
 	Menu::Subtitle("Brakes");
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_ID());
-	Menu::Toggle("Stock Brakes", b1);
-	Menu::Toggle("Street Brakes", b2);
-	Menu::Toggle("Sports Brakes", b3);
-	Menu::Toggle("Race Brakes", b4);
+	setvehmod("Stock Brakes", 12, -1);
+	setvehmod("Street Brakes", 12, 0);
+	setvehmod("Sports Brakes", 12, 1);
+	setvehmod("Race Brakes", 12, 2);
 
 
 }
@@ -748,23 +518,22 @@ void TransmissionEMS()
 {
 	Menu::Title("");
 	Menu::Subtitle("Transmission");
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_ID());
-	Menu::Toggle("Stock Transmission", t1);
-	Menu::Toggle("Street Transmission", t2);
-	Menu::Toggle("Sports Transmission", t3);
-	Menu::Toggle("Race Transmission", t4);
+	setvehmod("Stock Transmission", 13, -1);
+	setvehmod("Street Transmission", 13, 0);
+	setvehmod("Sports Transmission", 13, 1);
+	setvehmod("Race Transmission", 13, 2);
 
 }
 void SuspensionEMS()
 {
 	Menu::Title("");
 	Menu::Subtitle("Suspension");
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_ID());
-	Menu::Toggle("Stock Suspension", s1);
-	Menu::Toggle("Street Suspension", s2);
-	Menu::Toggle("Sports Suspension", s3);
-	Menu::Toggle("Race Suspension", s4);
-	Menu::Toggle("competition Suspension", s5);
+	setvehmod("Stock Suspension", 15, -1);
+	setvehmod("Street Suspension", 15, -1);
+	setvehmod("Sports Suspension", 15, -1);
+	setvehmod("Race Suspension", 15, -1);
+	setvehmod("Competition Suspension", 15, -1);
+	
 
 }
 void Wheelss()
@@ -871,7 +640,7 @@ void Respdrayss()
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
 	int Livreyg = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 48);
 	Menu::Subtitle("Colours/Liverys");
-	//Menu::MenuOption("RGB Colours", ResprayssED);
+	Menu::MenuOption("RGB Colours", ResprayssED);
 	Menu::MenuOption("Primary Colours", Primaryyy);
 	Menu::MenuOption("Secondary Colours", Secondaryyy);
 	Menu::MenuOption("Primary Bright Colours", pbright);

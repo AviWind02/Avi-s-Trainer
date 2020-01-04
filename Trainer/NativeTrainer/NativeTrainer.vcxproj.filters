@@ -88,6 +88,15 @@
     <ClCompile Include="MapMods.cpp">
       <Filter>Submneu\MapMods</Filter>
     </ClCompile>
+    <ClCompile Include="missionhelp.cpp">
+      <Filter>Submneu\Dev\Mission Help</Filter>
+    </ClCompile>
+    <ClCompile Include="dev.cpp">
+      <Filter>Submneu\Dev</Filter>
+    </ClCompile>
+    <ClCompile Include="Bodyguards.cpp">
+      <Filter>Submneu\Self\Bodyguard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\types.h">
@@ -188,6 +197,15 @@
     </ClInclude>
     <ClInclude Include="MapMods.h">
       <Filter>Submneu\MapMods</Filter>
+    </ClInclude>
+    <ClInclude Include="missionhelp.h">
+      <Filter>Submneu\Dev\Mission Help</Filter>
+    </ClInclude>
+    <ClInclude Include="dev.h">
+      <Filter>Submneu\Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="Bodyguards.h">
+      <Filter>Submneu\Self\Bodyguard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +319,15 @@
     </Filter>
     <Filter Include="Submneu\MapMods">
       <UniqueIdentifier>{b489e17a-a08a-4a7c-bdb3-b7313a789bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Dev">
+      <UniqueIdentifier>{56196c8f-b765-4c69-b01a-a9f1e0ada9ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Dev\Mission Help">
+      <UniqueIdentifier>{322b3835-8a70-49ca-b6c9-f6b464e88969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Self\Bodyguard">
+      <UniqueIdentifier>{baf48511-1d9f-4393-a20d-458022461d11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

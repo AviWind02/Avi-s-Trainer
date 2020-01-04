@@ -12,7 +12,7 @@ void sickygun()
 		if (does_it_exist(stickyboom))
 		{
 			RGB red{ 255, 0, 0 };
-			notifyBottom("Click Left Shit to Blow it");
+			notifyBottom("Click Left Shift to Blow it");
 			Vector3 boomhere = Get_Position(stickyboom);
 			DrawLightWithRange(boomhere, red, 999999.99999f, 999.9f);
 			//set_entity_as_visible(stickyboom, false);

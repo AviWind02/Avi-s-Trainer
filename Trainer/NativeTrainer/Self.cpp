@@ -57,7 +57,7 @@ void SelfFunction()
 	Player playerPed = PLAYER::PLAYER_PED_ID();
 	if (seatbelt)
 	{
-		set_ped_seatbelt_on(playerPed, true);
+		putonseatbelt(playerPed, true);
 	}
 	if(ignoreplayer)
 	{
@@ -235,17 +235,7 @@ void SelfFunction()
 			ENTITY::FREEZE_ENTITY_POSITION(EntityTarget, true);
 			set_ObjectStraight(EntityTarget);
 		}
-		if (IsKeyPressed(VK_KEY_A) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, INPUT_VEH_FLY_YAW_LEFT) && Menu::Settings::controllerinput)
-		{
-			ENTITY::SET_ENTITY_ROTATION(EntityTarget, 0, 0, playeryaw =+ 50, 1, true);
-		}
-		if (IsKeyPressed(VK_KEY_D) || CONTROLS::IS_DISABLED_CONTROL_PRESSED(0, INPUT_VEH_FLY_YAW_RIGHT) && Menu::Settings::controllerinput)
-		{
-			ENTITY::SET_ENTITY_ROTATION(EntityTarget, 0, 0, playeryaw =- 50, 1, true);
-		}
 	}
-
-
 	if (tinynigga)
 	{
 		PED::SET_PED_CONFIG_FLAG(PLAYER::PLAYER_PED_ID(), 223, tinynigga);

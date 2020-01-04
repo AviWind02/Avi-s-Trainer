@@ -31,7 +31,11 @@ bool isbennys()
 	}
 	return false;
 }
-bool mods()
+Vehicle getvehpedisin()
+{
+	return PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+}
+bool islsc()
 {
 	Menu::Title("");
 	Menu::Subtitle("Avi's Customs");
@@ -67,7 +71,23 @@ Vehicle nearbyveh()
 		}
 	}
 }
+bool setvehmod(char* mod, int type, int index)
+{
 
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
+	Option(mod);
+	if (Menu::Settings::currentOption == Menu::Settings::optionCount)
+	{
+		if (Menu::Settings::selectPressed)
+		{
+			VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
+			VEHICLE::SET_VEHICLE_MOD(veh, type, index, custom_Wheels);
+			return true;
+		}
+	}
+	return false;
+}
 //VEHICLE
 static std::string lastvehmodel("");
 bool get_vehicle_keyboard_result(uint* outModel)
@@ -118,7 +138,7 @@ void drive_on_water(Ped ped, Entity& waterobject)
 		if (!ENTITY::DOES_ENTITY_EXIST(waterobject))
 		{
 			Object objModel = 0xC42C019A; // prop_ld_ferris_wheel
-			LoadAndChill(objModel);
+			LoadAndChill(objModel);//idfk why i even made this 
 			Vector3& Pos = GetOffsetInWorldCoords(playerPed, 0, 4.0f, 0);
 			float whh = 0.0f;
 			if (WATER::GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
@@ -126,13 +146,12 @@ void drive_on_water(Ped ped, Entity& waterobject)
 				RequestControlOfEnt(playerPed);
 				ENTITY::SET_ENTITY_COORDS(playerPed, Pos.x, Pos.y, whh, 0, 0, 0, 1);
 			}
-			waterobject = OBJECT::CREATE_OBJECT(objModel, Pos.x, Pos.y, whh - 4.0f, 1, 1, 1);
+			waterobject = OBJECT::CREATE_OBJECT(objModel, Pos.x, Pos.y, whh - 4.0f, 1, 1, 1);// add checks for moving entity
 			NETWORK::SET_NETWORK_ID_CAN_MIGRATE(NETWORK::OBJ_TO_NET(waterobject), ped != playerPed);
 			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, Pos.x, Pos.y, whh, 0, 0, 0);
 			ENTITY::SET_ENTITY_ROTATION(waterobject, 0, 90, 0, 2, 1);
 			ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
-			//Game::Print::PrintBottomCentre("~b~Note:~s~ Enable again if water level is incorrect/changes.");
-			WAIT(0);
+			WAIT(10);// try 75 or 65 or something idk 
 			return;
 		}
 
@@ -152,6 +171,6 @@ void drive_on_water(Ped ped, Entity& waterobject)
 			NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(waterobject);
 		ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, myPos.x, myPos.y, Pos.z, 1, 1, 1);
 		ENTITY::SET_ENTITY_ROTATION(waterobject, 180.0f, 90.0f, 180.0f, 2, 1);
-		set_entity_as_visible(waterobject, false);
+		set_entity_as_visible(waterobject, false);//Check header file native not working 
 		ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
 }

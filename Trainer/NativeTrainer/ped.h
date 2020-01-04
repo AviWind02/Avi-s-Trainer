@@ -7,7 +7,7 @@ Ped CreatePed(char* PedName, Vector3 SpawnCoordinates, int ped_type, bool networ
 Ped nearbypeds();
 void network_set_everyone_ignore_player(Player player);
 void set_self_nearby_peds_calm();
-void set_ped_seatbelt_on(Ped ped, bool toggle);
+void putonseatbelt(Ped ped, bool toggle);
 
 //Animations
 void LoadAnim(char* dict);

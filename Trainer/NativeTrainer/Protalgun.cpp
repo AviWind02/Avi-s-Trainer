@@ -71,7 +71,6 @@ void teleygun()
 		if (ENTITY::IS_ENTITY_TOUCHING_ENTITY(playerPed, BALL1))
 		{
 			if (ENTITY::DOES_ENTITY_EXIST(BALL2))
-
 			{
 				ball2Coord = ENTITY::GET_ENTITY_COORDS(BALL2, false);
 				

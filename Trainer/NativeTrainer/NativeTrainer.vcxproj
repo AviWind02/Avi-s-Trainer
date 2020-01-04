@@ -7,8 +7,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bodyguards.cpp" />
     <ClCompile Include="Clothing.cpp" />
+    <ClCompile Include="dev.cpp" />
     <ClCompile Include="MapMods.cpp" />
+    <ClCompile Include="missionhelp.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="BlackList.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -43,7 +46,10 @@
     <ClInclude Include="..\..\inc\enums.h" />
     <ClInclude Include="..\..\inc\natives.h" />
     <ClInclude Include="..\..\inc\types.h" />
+    <ClInclude Include="Bodyguards.h" />
+    <ClInclude Include="dev.h" />
     <ClInclude Include="MapMods.h" />
+    <ClInclude Include="missionhelp.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Auth.h" />
     <ClInclude Include="BlackList.h" />

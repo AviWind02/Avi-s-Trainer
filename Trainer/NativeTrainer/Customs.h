@@ -8,6 +8,7 @@ namespace LSC
 	extern bool Neonrr;
 
 }
+extern bool custom_Wheels;
 void LSCWwW();
 void pbrdght();
 void sbrdight();
@@ -39,7 +40,7 @@ void auscalerims();
 void Hdghendrims();
 void Lightttt();
 void NEEaE();
-void Neonnan();
+void Neonnan(); 
 void fbumpear();
 void plateeeae();
 void insidea();

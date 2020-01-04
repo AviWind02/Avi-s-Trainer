@@ -38,35 +38,6 @@ void SpawnVeh2(char* toSpawn)
 		STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
 	}
 }
-void SpawnPlayerVehicle(Ped playerPed, Hash vehicleHash, bool spawnInVehicle, bool baseUpgrade, bool maxUpgrade)
-{
-	if (STREAMING::IS_MODEL_VALID(vehicleHash))
-	{
-		STREAMING::REQUEST_MODEL(vehicleHash);
-		while (!STREAMING::HAS_MODEL_LOADED(vehicleHash)) WAIT(0);
-		Vector3 ourCoords = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false);
-		float forward = 5.f;
-		float heading = ENTITY::GET_ENTITY_HEADING(PLAYER::PLAYER_PED_ID());
-		float xVector = forward * sin(degToRad(heading)) * -1.f;
-		float yVector = forward * cos(degToRad(heading));
-		Vehicle veh = VEHICLE::CREATE_VEHICLE(vehicleHash, ourCoords.x + xVector, ourCoords.y + yVector, ourCoords.z, heading, true, true);
-		RequestControlOfEnt(veh);
-		VEHICLE::SET_VEHICLE_ENGINE_ON(veh, true, true, true);
-		VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh);
-		DECORATOR::DECOR_SET_INT(veh, "MPBitset", 0);
-		VEHICLE::SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(veh, 0, 0, 0);
-		VEHICLE::SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(veh, 0, 0, 0);
-		auto networkId = NETWORK::VEH_TO_NET(veh);
-		ENTITY::_SET_ENTITY_REGISTER(veh, true);
-		if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(veh))
-			NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
-		PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), veh, -1);
-		WAIT(150);
-		STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(vehicleHash);
-	}
-}
-
-
 
 void inputveh()
 {
@@ -85,7 +56,7 @@ void inputveh()
 				STREAMING::REQUEST_MODEL(hash);
 				while (!STREAMING::HAS_MODEL_LOADED(hash)) WAIT(0);
 				Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-				SpawnPlayerVehicle(PLAYER::PLAYER_PED_ID(), hash, TRUE, TRUE, TRUE);
+				SpawnVeh2(keyboardResult);
 				WAIT(0);
 				STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash);
 				ENTITY::SET_VEHICLE_AS_NO_LONGER_NEEDED(&veh);
@@ -115,7 +86,7 @@ void By_DLC()
 	Menu::MenuOption("Bennys", Bennys_update_);
 	Menu::MenuOption("Finance and Felony", Finance_and_Felony_);
 	Menu::MenuOption("Diamond Casino", dlc148);
-
+	Menu::MenuOption("Diamond Casino Heist", dlc150);
 }
 
 void spawner()
@@ -125,29 +96,7 @@ void spawner()
 	Menu::MenuOption("Sort By DLC", By_DLC_);
 	Menu::Toggle("Delete Old Car", deletecarbool);
 	Menu::Toggle("Spawn in Car", Sppwnin);
-	if (Menu::Option("Input Vehicle")) {
-		BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(PLAYER::PLAYER_PED_ID());
-		Player player = PLAYER::PLAYER_ID();
-		Ped playerPed = PLAYER::PLAYER_PED_ID();
-		if (bPlayerExists)
-		{
-			GAMEPLAY::DISPLAY_ONSCREEN_KEYBOARD(TRUE, "FMMC_KEY_TIP8", "", "", "", "", "", 12);
-			while (GAMEPLAY::UPDATE_ONSCREEN_KEYBOARD() == 0) WAIT(0);
-			char* keyboardResult = GAMEPLAY::GET_ONSCREEN_KEYBOARD_RESULT();
-			Hash hash = GAMEPLAY::GET_HASH_KEY(keyboardResult);
-			if (STREAMING::IS_MODEL_IN_CDIMAGE(hash) && STREAMING::IS_MODEL_A_VEHICLE(hash))
-			{
-				STREAMING::REQUEST_MODEL(hash);
-				while (!STREAMING::HAS_MODEL_LOADED(hash)) WAIT(0);
-				Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-				SpawnPlayerVehicle(PLAYER::PLAYER_PED_ID(), hash, TRUE, TRUE, TRUE);
-				WAIT(0);
-				STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash);
-				ENTITY::SET_VEHICLE_AS_NO_LONGER_NEEDED(&veh);
-			}
-		}
-
-	}
+	inputveh();
 	Menu::MenuOption("Super", Super);
 	Menu::MenuOption("Sports", Sports);
 	Menu::MenuOption("Sport Classic", SportClassic);
@@ -583,15 +532,15 @@ void CoupesspinSpawner()
 	 Menu::SpawnOption("Lampadati Felon", "FELON");
 	 Menu::SpawnOption("Lampadati Felon GT", "FELON2");
 	 Menu::SpawnOption("Ocelot Jackal", "JACKAL");
-	 Menu::SpawnOption("Übermacht Oracle", "ORACLE");
-	 Menu::SpawnOption("Übermacht Oracle XS", "ORACLE2");
-	 Menu::SpawnOption("Übermacht Sentinel", "SENTINEL");
-	 Menu::SpawnOption("Übermacht Sentinel XS", "SENTINEL2");
+	 Menu::SpawnOption("Ubermacht Oracle", "ORACLE");
+	 Menu::SpawnOption("Ubermacht Oracle XS", "ORACLE2");
+	 Menu::SpawnOption("Ubermacht Sentinel", "SENTINEL");
+	 Menu::SpawnOption("Ubermacht Sentinel XS", "SENTINEL2");
 	 Menu::SpawnOption("Enus Windsor", "WINDSOR");
 	 Menu::SpawnOption("Enus Windsor Drop", "WINDSOR2");
 	 Menu::SpawnOption("Annis Savestra", "savestra");
-	 Menu::SpawnOption("Übermacht Zion", "ZION");
-	 Menu::SpawnOption("Übermacht Zion Cabrio", "ZION2");
+	 Menu::SpawnOption("Ubermacht Zion", "ZION");
+	 Menu::SpawnOption("Ubermacht Zion Cabrio", "ZION2");
 }
 void CyclesspinSpawner()
 {
@@ -1146,9 +1095,9 @@ void Bennys_update()
 	 Menu::SpawnOption("Declasse Tornado Custom", "TORNADO5");// recheck hash
 	 Menu::SpawnOption("Dundreary Virgo Classic Custom", "VIRGO2");
 	 Menu::SpawnOption("Dundreary Virgo Classic", "VIRGO3");
-	 Menu::SpawnOption("Vapid Slamvan Custom", "SLAMVAN3");
 	 Menu::SpawnOption("Willard Faction Custom", "FACTION2");
 	 Menu::SpawnOption("Willard Faction Custom Donk", "FACTION3");
+	 //add all bannys why not
 }
 void Finance_and_Felony()
 {
@@ -1170,11 +1119,10 @@ void Finance_and_Felony()
 	 Menu::SpawnOption("Tug", "TUG");
 
 }
-void dlc1_50()
+void dimhistcars()
 {
 	Menu::Title("");
 	Menu::Subtitle("Diamond Casino");
-
 	Menu::SpawnOption("ABSO", "ABSO");
 	Menu::SpawnOption("EVERON", "EVERON");
 	Menu::SpawnOption("FORMULA", "FORMULA");

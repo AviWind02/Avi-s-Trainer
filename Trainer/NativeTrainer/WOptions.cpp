@@ -12,6 +12,7 @@ bool clown = false;
 char* Car;
 char* car2;
 bool cargo = false;
+bool mindcontrol = false;
 bool forcegun = false;
 bool tpgun = false;
 bool drawmark = true;
@@ -32,10 +33,19 @@ bool aimbotfull = false;
 bool aimbot = false;
 bool lightgun = false;
 bool laser = false;
+bool gotem = false;
 int redg = 255, greeng, blueg;
 RGB colour = { redg, greeng, blueg };
 float screenX, screenY;
 float damageScale = 1000.0f;
+bool rcgun = false;
+Ped rcped;
+bool rccheck = false;
+bool rcghostgun = false;
+Ped rcghostped;
+bool rcghostcheck = false;
+bool getplayerpos = false;
+Vector3 playerpos;
 #define OFFSET_PLAYER					0x08
 #define OFFSET_PLAYER_INFO				0x10B8	
 #define OFFSET_PLAYER_INFO_FRAMEFLAGS	0x1F8
@@ -226,6 +236,7 @@ Vector3 GetCoordsInfrontOfCam(float distance) //GetCoordAimingAhead
 
 	return Output;
 }
+
 void gunsmenu()
 {
 
@@ -244,6 +255,87 @@ void gunsmenu()
 	Vector3 spawnPosition = add(&camPosition, &multiply(&dir, spawnDistance));
 
 
+	if (rcgun)
+	{
+		if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(PLAYER::PLAYER_ID(), &EntityTarget))
+		{
+			getplayerpos = true;
+			if (getplayerpos)
+				playerpos = Get_Position(playerPed);
+			getplayerpos = false;
+			if (ENTITY::IS_ENTITY_A_VEHICLE(EntityTarget))
+			{
+
+				GRAPHICS::SET_TIMECYCLE_MODIFIER("CAMERA_secuirity");
+				rcped = PED::CREATE_RANDOM_PED(0, 0, 0);
+				PED::SET_PED_INTO_VEHICLE(rcped, EntityTarget, -1);
+				set_entity_alpha(rcped, 0);
+				if (PED::IS_PED_IN_VEHICLE(rcped, EntityTarget, NULL))
+				{
+					PLAYER::CHANGE_PLAYER_PED(PLAYER::PLAYER_ID(), rcped, true, true);
+					VEHICLE::SET_VEHICLE_DOORS_LOCKED(getvehpedisin(), 4);
+
+				}
+			}
+		}
+		rccheck = true;
+	}
+	else
+	{
+
+		Hash model = ENTITY::GET_ENTITY_MODEL(playerPed);
+		if (rccheck)
+		{
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(playerPed, playerpos.x, playerpos.y, playerpos.z, 0, 0, 1);
+			GAMEPLAY::CLEAR_AREA_OF_PEDS(playerpos.x, playerpos.y, playerpos.z, 200, 0);
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(playerPed, playerpos.x, playerpos.y, playerpos.z, 0, 0, 1);
+			GRAPHICS::SET_TIMECYCLE_MODIFIER("default");
+			PED::DELETE_PED(&rcped);
+			if (model != GAMEPLAY::GET_HASH_KEY("player_zero") &&
+				model != GAMEPLAY::GET_HASH_KEY("player_one") &&
+				model != GAMEPLAY::GET_HASH_KEY("player_two"))
+			{
+				notifyBottom("turning to ~g~normal~w~..");
+				WAIT(1000);
+
+				model = GAMEPLAY::GET_HASH_KEY("player_zero");
+				STREAMING::REQUEST_MODEL(model);
+				while (!STREAMING::HAS_MODEL_LOADED(model))
+					WAIT(0);
+				PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), model);
+				PED::SET_PED_DEFAULT_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID());
+				STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
+					WAIT(0);
+
+			}
+			rccheck = false;
+		}
+		
+	}
+
+	if (rcghostgun)
+	{
+		if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(playerPed, &EntityTarget))
+		{
+			if(PED::IS_PED_SHOOTING(playerPed))
+			if (ENTITY::IS_ENTITY_A_VEHICLE(EntityTarget))
+			{
+				rcghostped = PED::CREATE_RANDOM_PED(0, 0, 0);
+				PED::SET_PED_INTO_VEHICLE(rcghostped, EntityTarget, -1);
+				set_entity_alpha(rcghostped, 0);
+			}
+		}
+		rccheck = true;
+	}
+	else
+	{
+		if (rcghostcheck)
+		{
+			PED::DELETE_PED(&rcghostped);
+			rccheck = false;
+		}
+
+	}
 	Player tempPed = PLAYER::PLAYER_ID();
 	if (Gravity)
 	{
@@ -287,7 +379,7 @@ void gunsmenu()
 			UI::_DRAW_NOTIFICATION(2000, 1);
 		}
 	}
-	
+
 	if (ropegun)
 	{
 		ROPE::ROPE_LOAD_TEXTURES();
@@ -484,10 +576,11 @@ void gunsmenu()
 				}
 			}
 		}
-		else 
+		else
 			notifyBottom("~bold~Equip ~bold~CombatPistol");
 		//WEAPON::GIVE_WEAPON_TO_PED(PLAYER::PLAYER_PED_ID(), WEAPON_COMBATPISTOL, 9999, false, true); i mean like i dont need this here 
 	}
+
 	if (freezray)
 	{
 
@@ -589,8 +682,8 @@ void gunsmenu()
 			RequestControlOfEnt(EntityTarget);
 			ENTITY::SET_ENTITY_HAS_GRAVITY(EntityTarget, false);
 			if (IsKeyPressed(VK_LSHIFT))
-			    ENTITY::APPLY_FORCE_TO_ENTITY(EntityTarget, 1, dir.x * 10.0f, dir.y * 10.0f, dir.z * -50.0f, 0.0f, 0.0f, 0.0f, 0, 0, 1, 1, 0, 1);
-			else 
+				ENTITY::APPLY_FORCE_TO_ENTITY(EntityTarget, 1, dir.x * 10.0f, dir.y * 10.0f, dir.z * -50.0f, 0.0f, 0.0f, 0.0f, 0, 0, 1, 1, 0, 1);
+			else
 				ENTITY::APPLY_FORCE_TO_ENTITY(EntityTarget, 1, dir.x * -10.0f, dir.y * -10.0f, dir.z * +50.0f, 0.0f, 0.0f, 0.0f, 0, 0, 1, 1, 0, 1);
 
 			gunon = false;
@@ -619,8 +712,8 @@ void gunsmenu()
 
 
 	}
-	
-	if(Alpha2) { Shootthingsoutofgun("ALPHA"); }
+
+	if (Alpha2) { Shootthingsoutofgun("ALPHA"); }
 	if (bombushka2) { Shootthingsoutofgun("bombushka"); }
 	if (CARGOPLANE2) { Shootthingsoutofgun("CARGOPLANE"); }
 	if (BUS2) { Shootthingsoutofgun("BUS"); }
@@ -677,9 +770,9 @@ void gunsmenu()
 				{
 					if (ENTITY::IS_ENTITY_A_PED(EntityTarget) && PED::IS_PED_IN_ANY_VEHICLE(EntityTarget, 1))
 					{
-						 PED::DELETE_PED(&EntityTarget);
-						 PED::SET_PED_INTO_VEHICLE(playerPed, EntityTarget, -1);
-					}					
+						PED::DELETE_PED(&EntityTarget);
+						PED::SET_PED_INTO_VEHICLE(playerPed, EntityTarget, -1);
+					}
 					PED::SET_PED_INTO_VEHICLE(playerPed, EntityTarget, -1);
 				}
 			}
@@ -714,7 +807,7 @@ void gunsmenu()
 		}
 
 	}
-	if(aimbotfull)
+	if (aimbotfull)
 	{
 		Player playerPed = PLAYER::PLAYER_PED_ID();
 		const int numElements = 10;
@@ -734,7 +827,7 @@ void gunsmenu()
 					BOOL exists = ENTITY::DOES_ENTITY_EXIST(targetPed);
 					BOOL dead = PLAYER::IS_PLAYER_DEAD(targetPed);
 
-					
+
 					BOOL onScreen = GRAPHICS::GET_SCREEN_COORD_FROM_WORLD_COORD(targetPos.x, targetPos.y, targetPos.z, &screenX, &screenY);
 					if (ENTITY::IS_ENTITY_VISIBLE(targetPed) && onScreen)
 					{
@@ -761,7 +854,30 @@ void gunsmenu()
 			}
 		}
 	}
-	
+	if (mindcontrol)
+	{
+		Hash firingPattern = key("FIRING_PATTERN_FULL_AUTO");
+		if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(PLAYER::PLAYER_ID(), &EntityTarget))
+		{
+			if (ENTITY::IS_ENTITY_A_PED(EntityTarget))
+			{
+
+				CONTROLS::DISABLE_CONTROL_ACTION(0, INPUT_ATTACK, TRUE);
+				CONTROLS::DISABLE_CONTROL_ACTION(2, INPUT_ATTACK2, TRUE);
+				CONTROLS::DISABLE_CONTROL_ACTION(2, INPUT_VEH_ATTACK, TRUE);
+				CONTROLS::DISABLE_CONTROL_ACTION(2, INPUT_VEH_ATTACK2, TRUE);
+				if (CONTROLS::IS_DISABLED_CONTROL_JUST_PRESSED(0, INPUT_ATTACK))
+						gotem = true;
+			}
+		}
+		if (gotem)
+		{
+			WEAPON::GIVE_WEAPON_TO_PED(nearbypeds(), GAMEPLAY::GET_HASH_KEY("WEAPON_RPG"), 25, 1, 1);
+			AI::TASK_SHOOT_AT_ENTITY(nearbypeds(), EntityTarget, 50000, firingPattern);
+		}
+		if (PED::IS_PED_DEAD_OR_DYING(EntityTarget, true))
+			gotem = false;
+	}
 
 }
 void Main_Impact_Gun()
@@ -851,12 +967,15 @@ void weaponsub()
 	Menu::Toggle("Flaming Ammo", laser);
 	Menu::Toggle("Sticky Detonator", Stcikdgun);
 	Menu::Toggle("Explosive Ammo", Ammoexp);
+	Menu::Toggle("RC Gun(Shoot any empty car beta)", rcgun);
+	Menu::Toggle("Ghost Car(Shoot any empty car)", rcghostgun);
 if (Ammoexp) Menu::Float("Explosive Damage Scale", damageScale, 0.0f, 9999.9999f);
 	Menu::Toggle("Trigger Bot", triggerbot);
 	Menu::Toggle("Aimbot", aimbotfull);
 	Menu::Toggle("Gravity Gun", Gravity);
 	Menu::Toggle("Portal Gun", protelgun);
 	Menu::Toggle("Soul Gun", pedgun);
+	Menu::Toggle("Mind Control(beta)", mindcontrol);
 	//Menu::Toggle("Light Ammo", lightgun);
 	if (lightgun)
 	{

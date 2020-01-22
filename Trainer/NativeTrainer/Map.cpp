@@ -1,17 +1,33 @@
 #include "MAIN.h"
 
 
-//TELEPORTATION
-//TELEPORTATION
+
+void teleportplayertocoord(float pX, float pY, float pZ)
+{
+	Entity Player = PLAYER::PLAYER_PED_ID();
+	Entity tp_OP;
+	if (ENTITY::IS_ENTITY_A_PED(Player) && PED::IS_PED_IN_ANY_VEHICLE(Player, 1))
+	{
+		tp_OP = PED::GET_VEHICLE_PED_IS_IN(Player, 0);
+	}
+	else tp_OP = Player;
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(tp_OP, pX, pY, pZ, 0, 0, 1);
+}
 bool teleportplayertocoord(char* name, float pX, float pY, float pZ, bool toggle)
 {
 	Option(name);
 	Entity Player = PLAYER::PLAYER_PED_ID();
+	Entity tp_OP;
+	if (ENTITY::IS_ENTITY_A_PED(Player) && PED::IS_PED_IN_ANY_VEHICLE(Player, 1))
+	{
+		tp_OP = PED::GET_VEHICLE_PED_IS_IN(Player, 0);
+	}
+	else tp_OP = Player;
 	if (Menu::Settings::currentOption == Menu::Settings::optionCount)
 	{
 		if (Menu::Settings::selectPressed)
 		{
-			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(Player, pX, pY, pZ, 0, 0, 1);
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(tp_OP, pX, pY, pZ, 0, 0, 1);
 			if (toggle)
 				DLC2::_LOAD_MP_DLC_MAPS();
 			return true;
@@ -21,13 +37,19 @@ bool teleportplayertocoord(char* name, float pX, float pY, float pZ, bool toggle
 }
 bool teleportplayertocoords(char* name, float pX, float pY, float pZ)
 {
+	Entity Player = PLAYER::PLAYER_PED_ID();
+	Entity tp_OP;
+	if (ENTITY::IS_ENTITY_A_PED(Player) && PED::IS_PED_IN_ANY_VEHICLE(Player, 1))
+	{
+		tp_OP = PED::GET_VEHICLE_PED_IS_IN(Player, 0);
+	}
+	else tp_OP = Player;
 	Option(name);
 	if (Menu::Settings::currentOption == Menu::Settings::optionCount)
 	{
 		if (Menu::Settings::selectPressed)
 		{
-			Entity Player = PLAYER::PLAYER_PED_ID();
-			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(Player, pX, pY, pZ, 0, 0, 1);
+			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(tp_OP, pX, pY, pZ, 0, 0, 1);
 			return true;
 		}
 	}

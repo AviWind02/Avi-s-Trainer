@@ -45,6 +45,8 @@ bool rcghostgun = false;
 Ped rcghostped;
 bool rcghostcheck = false;
 bool getplayerpos = false;
+bool disgun = false;
+
 Vector3 playerpos;
 #define OFFSET_PLAYER					0x08
 #define OFFSET_PLAYER_INFO				0x10B8	
@@ -306,7 +308,6 @@ void gunsmenu()
 				PED::SET_PED_DEFAULT_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID());
 				STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
 					WAIT(0);
-
 			}
 			rccheck = false;
 		}
@@ -315,27 +316,43 @@ void gunsmenu()
 
 	if (rcghostgun)
 	{
+
+		Entity EntityTarget;
 		if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(playerPed, &EntityTarget))
 		{
-			if(PED::IS_PED_SHOOTING(playerPed))
 			if (ENTITY::IS_ENTITY_A_VEHICLE(EntityTarget))
 			{
-				rcghostped = PED::CREATE_RANDOM_PED(0, 0, 0);
-				PED::SET_PED_INTO_VEHICLE(rcghostped, EntityTarget, -1);
-				set_entity_alpha(rcghostped, 0);
+				Ped Driver = PED::CREATE_RANDOM_PED_AS_DRIVER(EntityTarget, false);
+				RequestControlOfEnt(EntityTarget);
+				PED::SET_PED_INTO_VEHICLE(Driver, EntityTarget, -1);
+				set_entity_alpha(Driver, 0);
 			}
 		}
-		rccheck = true;
 	}
-	else
+	if (disgun)
 	{
-		if (rcghostcheck)
+		Entity EntityTarget;
+		if (PLAYER::GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(playerPed, &EntityTarget))
 		{
-			PED::DELETE_PED(&rcghostped);
-			rccheck = false;
-		}
+			RequestControlOfEnt(EntityTarget);
 
+				ENTITY::SET_ENTITY_COORDS(EntityTarget, 0.f, 0.f, -10.f,
+					true, true, true, false); 
+				set_entity_pos_dead(EntityTarget, true);
+		}
+		if (ENTITY::IS_ENTITY_AT_COORD(EntityTarget, 0.f, 0.f, -10.f,
+			100, 100, 100, true, false,
+			1)) {
+			Vector3 iCoord;
+			if (WEAPON::GET_PED_LAST_WEAPON_IMPACT_COORD(playerPed, &iCoord))
+			{
+				ENTITY::SET_ENTITY_COORDS(EntityTarget, iCoord.x, iCoord.y, iCoord.z + 1, 0, 0, 1, 1);
+				WAIT(0);
+
+			}
+		}
 	}
+
 	Player tempPed = PLAYER::PLAYER_ID();
 	if (Gravity)
 	{
@@ -560,6 +577,7 @@ void gunsmenu()
 	if (pedgun) {
 
 		Entity EntityTarget;
+
 		if (equippedWeapon == WeaponCombatPistol)
 		{
 			CONTROLS::DISABLE_CONTROL_ACTION(0, INPUT_ATTACK, TRUE);
@@ -965,10 +983,11 @@ void weaponsub()
 	Menu::MenuOption("Force Object Gun", ForceObjectGun); 
 	Menu::Toggle("Infinity Ammo", Ammoinf);
 	Menu::Toggle("Flaming Ammo", laser);
+	//Menu::Toggle("Disappear 0500", disgun);
 	Menu::Toggle("Sticky Detonator", Stcikdgun);
+	Menu::Toggle("RC Gun", rcgun);
+//	Menu::Toggle("Ghost Gun", rcghostgun);
 	Menu::Toggle("Explosive Ammo", Ammoexp);
-	Menu::Toggle("RC Gun(Shoot any empty car beta)", rcgun);
-	Menu::Toggle("Ghost Car(Shoot any empty car)", rcghostgun);
 if (Ammoexp) Menu::Float("Explosive Damage Scale", damageScale, 0.0f, 9999.9999f);
 	Menu::Toggle("Trigger Bot", triggerbot);
 	Menu::Toggle("Aimbot", aimbotfull);
@@ -976,13 +995,6 @@ if (Ammoexp) Menu::Float("Explosive Damage Scale", damageScale, 0.0f, 9999.9999f
 	Menu::Toggle("Portal Gun", protelgun);
 	Menu::Toggle("Soul Gun", pedgun);
 	Menu::Toggle("Mind Control(beta)", mindcontrol);
-	//Menu::Toggle("Light Ammo", lightgun);
-	if (lightgun)
-	{
-		Menu::Int("Red", redg, 0, 255);
-		Menu::Int("Green", greeng, 0, 255);
-		Menu::Int("Blue", blueg, 0, 255);
-	}
 	Menu::Toggle("Sit in car Gun", sitgun);
 	Menu::Toggle("Teleport Gun", tpgun);
 	Menu::Toggle("Rapid Fire", rapidfire);

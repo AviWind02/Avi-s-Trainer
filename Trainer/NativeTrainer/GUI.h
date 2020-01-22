@@ -26,6 +26,7 @@ enum SubMenus { //Add Sub Menus in here
 	VehicleStuff,
 	weathersub,
 	Onlineselecc,
+	selectedplayeri,
 	Weaponsub,
 	Networksub,
 	Recoverysub,
@@ -118,6 +119,7 @@ enum SubMenus { //Add Sub Menus in here
 	ResprayssED,
 	bennys,
 	BackWheels,
+		frontwheels,
 	Bennywheel,
 	O,
 	B,
@@ -468,6 +470,7 @@ enum SubMenus { //Add Sub Menus in here
 	Onlinerelated,
 	_Interiors,
 	vehkey,
+		privatejet,
 	modelsub,
 	BodyguardWeapons,
 	AmbientFemale_,
@@ -482,6 +485,7 @@ enum SubMenus { //Add Sub Menus in here
 	StoryScenarioFemale_,
 	StoryScenarioMale_,
 	other_,
+		bennyscustomwheels,
 };
 
 void Option(char* option);
@@ -627,6 +631,7 @@ namespace Menu {
 	bool OptionProp(char* Prop_Name);
 	bool ColourOption(char* colour_Name, int colour_index, int colour_index2, bool Pearlescent, bool WheelColor);
 	bool WheelOption(char* colour_Name, int wheel_index, int rim_index, bool Custom);
+	bool backWheelOption(char* colour_Name, int wheel_index, int rim_index, bool Custom);
 	bool WeaponOption(char* weapon_Name, char* hash, char* hashment, int ammo, int tnit, bool attchment, bool tint, bool gun);
 	bool SpawnOption(char* option, char* carname);
 
@@ -647,7 +652,7 @@ namespace Menu {
 	bool Axis(const char* option, float& _float, int min, int max);
 	bool Floathundr(const char* option, float& _float, int min, int max);
 	bool StringVector(const char* option, std::vector<std::string> Vector, int& position);
-
+	bool StringVectorOption(const char* option, std::vector<std::string> Vector, int& position);
 	//bool Float(const char* option, float& _float, int min, int max, std::function<void()> function);
 	//bool Float(const char* option, float& _float, int min, int max, int step, std::function<void()> function);
 	//bool IntVector(const char* option, std::vector<int> Vector, int& position);

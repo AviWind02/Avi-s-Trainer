@@ -9,6 +9,7 @@ namespace LSC
 
 }
 extern bool custom_Wheels;
+extern int currWheelType;
 void LSCWwW();
 void pbrdght();
 void sbrdight();
@@ -32,8 +33,10 @@ void ClassicMetallaics();
 void Matteas();
 void Metaalss();
 void Wheelss();
+void bennyscustomrims();
 void WheelColour();
 void BackWheaels();
+void frontWheaels();
 void Rimns();
 void Tunerrimss();
 void auscalerims();

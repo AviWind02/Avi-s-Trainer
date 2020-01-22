@@ -68,9 +68,21 @@ bool does_it_exist(Entity entity)
 	if (ENTITY::DOES_ENTITY_EXIST(entity))
 		return true;
 }
+bool isped_ = false;
 Vector3 Get_Position(Entity entity)
 {
-	return ENTITY::GET_ENTITY_COORDS(entity, NULL);
+	if (ENTITY::IS_ENTITY_A_PED(entity))
+		isped_ = true;
+	else
+		isped_ = false;
+	return ENTITY::GET_ENTITY_COORDS(entity, isped_);
+}
+bool is_it_there(Entity entity, Vector3 pos)
+{
+	if (ENTITY::IS_ENTITY_AT_COORD(entity, pos.x, pos.y, pos.z,
+		100, 100, 100, true, false,
+		1)) return true;
+	return false;
 }
 Vector3 GetOffsetInWorldCoords(Entity entity, Vector3 offset)
 {
@@ -101,6 +113,11 @@ Vector3 playerPosition()
 {
 	Ped playerPed = PLAYER::PLAYER_PED_ID();
 	return ENTITY::GET_ENTITY_COORDS(playerPed, true);
+}
+Entity set_pos(Entity entity, Vector3 pos)
+{
+	ENTITY::SET_ENTITY_COORDS(entity, pos.x, pos.y, pos.z,
+		true, true, true, false);
 }
 Hash key(char* key)
 {

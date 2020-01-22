@@ -70,6 +70,8 @@ void KickPlayer(int i)// kicks may be outdated
 	unsigned int Bit = (1 << i);
 	int kick_1[4] = { 2870072008, Bit, 0, 0 };//old kick
 	SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_1, 4, Bit);
+	int infiniteload[9] = { 1000837481, Bit, 0, -1, 1, 115, 0, 0, 0 };
+	SCRIPT::TRIGGER_SCRIPT_EVENT(1, infiniteload, 9, Bit);// idk why not
 }
 void wditblackplayer()// making this for editing list in game dont wanna do anything for now
 {

@@ -5,6 +5,6 @@ Vehicle nearbyveh();
 bool islsc();
 void deletecar();
 bool isbennys();
-void drive_on_water(Ped ped, Entity& waterobject);
+void Set_Veh_Mod_Get_Looped(int modtype);
 bool setvehmod(char* mod, int type, int index);
 Vehicle getvehpedisin();

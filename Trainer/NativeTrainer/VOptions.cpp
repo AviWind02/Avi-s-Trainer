@@ -26,13 +26,42 @@ int Alpha = 255;
 bool heavy_mass = false;
 bool DeleteBumper = false;
 bool dritlevel = false;
-float Drit = 0.0;
-void vehguns()
+float Drit = 0.0; 
+void Spawn_Custom_Veh(char* option, char* veh1, char* veh2, Vector3 pos, Vector3 rot)
 {
 
-
-
-
+	uint Handle = PLAYER::PLAYER_PED_ID();
+	Vector3 MyCoords = ENTITY::GET_ENTITY_COORDS(Handle, 1);
+	Vector3 null; null.x = 0, null.y = 0; null.z = 0;
+	Vector3 a; a.x = 0, a.y = -0.4f, a.z = 0.1f;
+	Vector3 b; b.x = 0, b.y = 0, b.z = 180;
+	int hash = key(veh1);
+	int hash2 = key(veh2);
+	STREAMING::REQUEST_MODEL(hash);
+	STREAMING::REQUEST_MODEL(hash2);
+	Option(option);
+	if (Menu::Settings::currentOption == Menu::Settings::optionCount)
+	{
+		if (Menu::Settings::selectPressed)
+		{
+			if (STREAMING::HAS_MODEL_LOADED(hash) && STREAMING::HAS_MODEL_LOADED(hash2))
+			{
+				int Object = OBJECT::CREATE_OBJECT(hash2, null.x, null.y, null.z, true, false, true);
+				if (ENTITY::DOES_ENTITY_EXIST(Object))
+				{
+					int Vehicle = VEHICLE::CREATE_VEHICLE(hash, MyCoords.x, MyCoords.y, MyCoords.z, ENTITY::GET_ENTITY_HEADING(Handle), true, false);
+					if (ENTITY::DOES_ENTITY_EXIST(Vehicle))
+					{
+						PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), Vehicle, -1);
+						STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash);
+						ENTITY::SET_ENTITY_VISIBLE(Vehicle, false, 0); // Make Vehicle Inv
+						ENTITY::ATTACH_ENTITY_TO_ENTITY(Vehicle, Vehicle, 0, pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, 0, 1, 0, 0, 2, 2);
+						ENTITY::SET_ENTITY_VISIBLE(Handle, true, 0); // Make me Vis
+					}
+				}
+			}
+		}
+	}
 }
 std::string plateSymbols[35] = {
 	"a", "b", "c", "d", "e", "f",
@@ -617,7 +646,7 @@ void vehfunctions()
 	{
 		int VehID = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
 		RequestNetworkControl(VehID);
-		ENTITY::SET_ENTITY_ALPHA(VehID, 255, false);
+		ENTITY::SET_ENTITY_ALPHA(VehID, -1, false);
 
 	}
 	if (alpha)
@@ -652,10 +681,10 @@ void vehfunctions()
 		Entity touchy = ENTITY::IS_ENTITY_TOUCHING_ENTITY(veh, nearbyveh());
 		if (touchy)
 		{
-			Vector3 dir = ENTITY::GET_COLLISION_NORMAL_OF_LAST_HIT_FOR_ENTITY(nearbyveh());
+			Vector3 dir = ENTITY::GET_ENTITY_FORWARD_VECTOR(nearbyveh());
 			VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(veh);
 			RequestControlOfEnt(nearbyveh());
-			ApplyForceToEntity(nearbyveh(), dir.x * pushForce, dir.y * pushForce, dir.z * pushForce);
+		    ApplyForceToEntity(nearbyveh(), dir.x * pushForce, dir.y * pushForce, dir.z * pushForce);
 			VEHICLE::SET_VEHICLE_FORWARD_SPEED(veh, speed);
 
 		}
@@ -995,6 +1024,22 @@ void PV_()
 
 }
 
+/*
+new file
+addd all veh form spawner or some how use the spawner
+add some peds and add a random button for peds
+add easy, normal and hard mode
+add timer
+waypoint check
+ M
+ X: 1960.956543 Y: 4723.910156 Z: 41.060356
+ X: 2079.356445 Y: 4786.969727 Z: 41.064873
+
+ T
+ X: 1073.194824 Y: 3082.153564 Z: 40.758934
+ X: 1674.305908 Y: 3244.593994 Z: 40.723400
+*/
+
 
 
 void vehgunmenu()
@@ -1055,6 +1100,7 @@ void vehicleStuff()
 	Menu::MenuOption("AI Driving", AIDrving);
 	Menu::MenuOption("Player Vehicle", PV);
 	Menu::MenuOption("Vehicle Key", vehkey);
+	Menu::MenuOption("Private Jet beta", privatejet);
 	menu_if_veh();
 	Menu::Toggle("Auto Fix", autofix);
 	Menu::Toggle("Invincible", invinveh);

@@ -1,7 +1,7 @@
 #include "MAIN.h"
 bool helpheil = false;
 Vehicle bird;
-Ped pilot;
+Ped pilott;
 Ped shooterright;
 Ped shooterleft;
 float dis = 150.0f;
@@ -69,7 +69,7 @@ void devwork()
 	if (does_it_exist(bird))
 	{
 
-		pilot = PED::CREATE_RANDOM_PED_AS_DRIVER(bird, false);
+		pilott = PED::CREATE_RANDOM_PED_AS_DRIVER(bird, false);
 		set_entity_invincible(bird);
 
 		//AI::TASK_SET_BLOCKING_OF_NON_TEMPORARY_EVENTS(Driver, true);
@@ -78,7 +78,7 @@ void devwork()
 		//PED::SET_PED_COMBAT_ATTRIBUTES(Driver, 17, 1);
 		Menu::Float("Distance", dis, 0.0f, 200.0f);
 		Menu::Float("Speed", speed, 0.0f, 200.0f);
-		AI::TASK_VEHICLE_MISSION_PED_TARGET(pilot, bird, playerPed, pos_, dis, Normal, speed, NULL, NULL);
+		AI::TASK_VEHICLE_MISSION_PED_TARGET(pilott, bird, playerPed, pos_, dis, Normal, speed, NULL, NULL);
 		AI::TASK_SHOOT_AT_ENTITY(shooterleft + shooterright, nearbypeds(), 999, firingPattern);
 		notifyBottom("Bird is something");
 	}	

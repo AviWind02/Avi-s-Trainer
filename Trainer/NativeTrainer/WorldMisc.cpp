@@ -701,6 +701,9 @@ void world_time()
 	if (Menu::Option("Set Time")) { TIME::SET_CLOCK_DATE(day, month, year); }
 
 }
+
+
+
 void misc_world_Sub()
 {
 	Menu::Title("");
@@ -720,5 +723,5 @@ void misc_world_Sub()
 	Menu::Toggle("Blow up Ped Heads", kill);
 	Menu::Toggle("Show Player coordinates", showcords);
 	Menu::Toggle("3D Waypoint", threedwaypoint);
-	Menu::Toggle("Flything", flything); 
+	Menu::Toggle("Flything", flything);
 }

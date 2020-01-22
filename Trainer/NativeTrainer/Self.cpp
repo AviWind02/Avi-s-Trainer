@@ -16,6 +16,7 @@ bool SuperRun = false;
 bool FastSwim, FastRun = false;
 bool ignoreplayer = false;
 bool seatbelt = false;
+bool neverwanted = false;
 Vector3 CCombineVector(float x, float y, float z)
 {
 	Vector3 returnVector;
@@ -257,6 +258,12 @@ void SelfFunction()
 			SCRIPT::REQUEST_SCRIPT_WITH_NAME_HASH(GAMEPLAY::GET_HASH_KEY("cellphone_controller"));
 		}
 	}
+	if (neverwanted)
+	{
+		PLAYER::SET_MAX_WANTED_LEVEL(6);
+		PLAYER::SET_PLAYER_WANTED_LEVEL(PLAYER::PLAYER_ID(), 0, 0); 
+		PLAYER::SET_PLAYER_WANTED_LEVEL_NOW(PLAYER::PLAYER_ID(), 0);
+	}
 
 }
 int targettingmode; 
@@ -267,6 +274,7 @@ void Self()
 	Menu::Subtitle("Local Menu");
 	Menu::Toggle("Godmode", Modegod);
 	if (Menu::Int("Wanted Level", wantedlevel, 0, 5)) { PLAYER::SET_MAX_WANTED_LEVEL(6); PLAYER::SET_PLAYER_WANTED_LEVEL(PLAYER::PLAYER_ID(), wantedlevel, 0); PLAYER::SET_PLAYER_WANTED_LEVEL_NOW(PLAYER::PLAYER_ID(), 0); }
+	if (PLAYER::GET_PLAYER_WANTED_LEVEL(PLAYER::PLAYER_PED_ID()) < 1) Menu::Toggle("Never Wanted", neverwanted);
 	if (Menu::Int("Player Targeting", targettingmode, 0, 2)) { if (Menu::Settings::currentOption) {	notifyBottom("0 = Traditional GTA, 1 = Assisted Aiming, 2 = Free Aim"); } }
 	Menu::Toggle("Seat Belt", seatbelt);
 	Menu::Toggle("All Ignore Me", ignoreplayer);

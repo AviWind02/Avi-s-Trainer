@@ -49,6 +49,7 @@
 #include"Customs.h"
 #include"VOptions.h"
 #include"Spawner.h"
+#include"PrivateJet.h"
 //Weapons
 #include"GunStore.h"
 #include "WOptions.h"
@@ -73,3 +74,7 @@
 #include "missionhelp.h"
 //dev
 #include "dev.h"
+//Online
+#include"OptionO.h"
+extern int selectedPlayer;
+

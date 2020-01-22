@@ -261,7 +261,7 @@ void MapMods()
 		LoadObjects(118627012, -74.8438, -819.617, 323.685, 0, 0, -3.37511);
 		LoadObjects(2475986526, -67.6253, -820.244, 323.793, -14.4263, -8.53774, -100.02);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -74.94243f, -818.63446f, 326.174347f, 1, 0, 0, 1);
+		teleportplayertocoord(-74.94243f, -818.63446f, 326.174347f);
 		loaded = false;
 
 	}
@@ -341,7 +341,7 @@ void MapMods()
 		LoadObjects(803874239, -76.8377, -790.87, 326.823, 0, -0, 100.953);
 		LoadObjects(803874239, -81.0088, -791.22, 326.713, 0, -0, 100.953);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -74.94243f, -818.63446f, 326.174347f, 1, 0, 0, 1);
+		teleportplayertocoord(-74.94243f, -818.63446f, 326.174347f);
 	}
 	if (Menu::Option("Beach Ferris-Ramp")) {
 		LoadObjects(1952396163, -1497.76, -1113.84, -3.08, -90, 6.14715e-007, 165.792);
@@ -369,7 +369,7 @@ void MapMods()
 		LoadObjects(2975320548, -1460.95, -1218.79, 7.66, -29.9323, -0.173323, 24.7221);
 		LoadObjects(2975320548, -1463.05, -1214.19, 6.7879, -6.50192, 1.391, 24.2651);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -1513.0f, -1192.0f, 1.0f, 1, 0, 0, 1);
+		teleportplayertocoord(-1513.0f, -1192.0f, 1.0f);
 	}
 	if (Menu::Option("Airport Mini Ramp")) {
 		LoadObjects(2475986526, -1242.08, -2931.15, 12.9924, -0.1046, -3.33505e-009, 61.0607);
@@ -406,7 +406,7 @@ void MapMods()
 		LoadObjects(3966705493, -1271.09, -2902.58, 23.0057, 0, -0, -119.462);
 		LoadObjects(3966705493, -1272.37, -2904.83, 22.9972, 0, -0, -119.462);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -1208, -2950, 13, 1, 0, 0, 1);
+		teleportplayertocoord(-1208, -2950, 13);
 	}
 	if (Menu::Option("Airport Gate Ramp")) {
 		LoadObjects(2475986526, -1098.36, -2631.17, 19, 0, -0, 152.671);
@@ -417,7 +417,7 @@ void MapMods()
 		LoadObjects(1952396163, -1119.61, -2670.96, -5.125, 0, -0, 150.401);
 		LoadObjects(3137065507, -1044.69, -2530.08, 20.4011, 94.8962, 4.26887e-007, 147.716);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -1046, -2538, 20, 1, 0, 0, 1);
+		teleportplayertocoord(-1046, -2538, 20);
 	}
 	if (Menu::Option("UFO Tower")) {
 		LoadObjects(3026699584, 70.2592, -674.044, 654.365, 0.660085, -0.919939, -109.32);
@@ -496,7 +496,7 @@ void MapMods()
 		LoadObjects(3026699584, 70.2592, -674.044, 65.4918, 0.660085, -0.919939, -109.32);
 		LoadObjects(3026699584, 70.2592, -674.044, 57.313, 0.660085, -0.919939, -109.32);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 70, -674, 680, 1, 0, 0, 1);
+		teleportplayertocoord(70, -674, 680);
 	}
 	if (Menu::Option("Maze Bank Quad Ramp")) {
 		LoadObjects(3522933110, -81.3886, -814.648, 325.169, 0, -0, 180);
@@ -710,7 +710,7 @@ void MapMods()
 		LoadObjects(3681122061, -249.757, -928.867, 170.944, -31.11, -6.0617, 122.286);
 		LoadObjects(3681122061, -251.566, -930.012, 169.653, -27.54, -3.58585, 122.286);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -74.94243f, -818.63446f, 326.174347f, 1, 0, 0, 1);
+		teleportplayertocoord(-74.94243f, -818.63446f, 326.174347f);
 	}
 	if (Menu::Option("Fort Zancudo Motorcross")) {
 		LoadObjects(3213433054, -2661.22, 3209.43, 32.7118, 0, -0, -120.437);
@@ -836,7 +836,7 @@ void MapMods()
 		LoadObjects(209943352, -2425.58, 3091.36, 36.493, 0, -0, -120.716);
 		LoadObjects(209943352, -2293.7, 3012.65, 55.3685, -89.7587, -0.659716, -30.2946);
 		LoadObjects(209943352, -2293.7, 3012.65, 55.3685, -89.7587, -0.659716, -30.2946);
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -2731, 3259, 32, 1, 0, 0, 1);
+		teleportplayertocoord(-2731, 3259, 32);
 	}
 	if (Menu::Option("Halfpipe Fun Track")) {
 		LoadObjects(3681122061, -1018.78, -2937.26, 12.9646, 0, 0, -30.3132);
@@ -944,7 +944,7 @@ void MapMods()
 		LoadObjects(3608473212, -1065.36, -3006.66, 15.3449, 0, 0, -25.1145);
 		LoadObjects(2475986526, -1065.75, -3010.35, 16.0846, 0, 0, -26.0348);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -1003, -2916, 14, 1, 0, 0, 1);
+		teleportplayertocoord(-1003, -2916, 14);
 	}
 	if (Menu::Option("Airport Loop")) {
 		LoadObjects(3966705493, -1041.89, -3219.51, 10.1797, -2.43331, 5.32208, 62.9336);
@@ -1007,7 +1007,7 @@ void MapMods()
 		LoadObjects(3966705493, -1047.44, -3209.98, 45.2161, 117.837, 1.39215, 60.3137);
 		LoadObjects(3966705493, -1047.44, -3209.98, 45.2161, 117.837, 1.39215, 60.3137);
 
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -1074, -3201, 13, 1, 0, 0, 1);
+		teleportplayertocoord(-1074, -3201, 13);
 	}
 	if (Menu::Option("Maze Bank Ramp")) {
 		LoadObjects(3681122061, -82.9657, -818.944, 325.175, 0, -0, 91.03);
@@ -1067,7 +1067,7 @@ void MapMods()
 		LoadObjects(3681122061, -421.727, -825.218, 67.0936, 25.7601, -2.09975e-005, 91.1095);
 		LoadObjects(3681122061, -422.006, -825.234, 66.966, 30.8199, 0.114757, 90.6829);
 		LoadObjects(3681122061, -429.913, -825.328, 71.6856, 30.8199, 0.114757, 90.6829);
-		ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), -74.94243f, -818.63446f, 326.174347f, 1, 0, 0, 1);
+		teleportplayertocoord(-74.94243f, -818.63446f, 326.174347f);
 
 	}
 }

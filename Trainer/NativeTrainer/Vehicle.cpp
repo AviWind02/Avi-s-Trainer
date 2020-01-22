@@ -131,46 +131,35 @@ bool get_vehicle_keyboard_result(uint* outModel)
 	return false;
 }
 
-void drive_on_water(Ped ped, Entity& waterobject)
+void Set_Veh_Mod_Get_Looped(int modtype)
 {
 	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	
-		if (!ENTITY::DOES_ENTITY_EXIST(waterobject))
+	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
+	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, modtype);
+	if (Menu::Option("Stock"))
+	{
+		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
+		VEHICLE::SET_VEHICLE_MOD(veh, modtype, -1, 1);
+	}
+	for (int i = 0; i < nummods; i++)
+		//gets the mod numbers
+	{
+		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, modtype, i));
+		//gets the name in the game set lang
 		{
-			Object objModel = 0xC42C019A; // prop_ld_ferris_wheel
-			LoadAndChill(objModel);//idfk why i even made this 
-			Vector3& Pos = GetOffsetInWorldCoords(playerPed, 0, 4.0f, 0);
-			float whh = 0.0f;
-			if (WATER::GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
+			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
+				//only puts the names out if person in car and checks car
 			{
-				RequestControlOfEnt(playerPed);
-				ENTITY::SET_ENTITY_COORDS(playerPed, Pos.x, Pos.y, whh, 0, 0, 0, 1);
-			}
-			waterobject = OBJECT::CREATE_OBJECT(objModel, Pos.x, Pos.y, whh - 4.0f, 1, 1, 1);// add checks for moving entity
-			NETWORK::SET_NETWORK_ID_CAN_MIGRATE(NETWORK::OBJ_TO_NET(waterobject), ped != playerPed);
-			ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, Pos.x, Pos.y, whh, 0, 0, 0);
-			ENTITY::SET_ENTITY_ROTATION(waterobject, 0, 90, 0, 2, 1);
-			ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
-			WAIT(10);// try 75 or 65 or something idk 
-			return;
-		}
-
-		Vector3& myPos = playerPosition();
-		Vector3& Pos = ENTITY::GET_ENTITY_COORDS(waterobject, 1);
-
-		if (isplayerinwater())
-		{
-			float whh = 0.0f;
-			if (WATER::GET_WATER_HEIGHT_NO_WAVES(Pos.x, Pos.y, Pos.z, &whh))
-			{
-				ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, Pos.x, Pos.y, whh, 0, 0, 0);
+				if (Menu::Option(mod))
+					//mod puts all the name 
+				{
+					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
+					//mod kit should always be 0
+					VEHICLE::SET_VEHICLE_MOD(veh, modtype, i, 1);
+					//set the veh mod
+				}
 			}
 		}
-
-		if (!NETWORK::NETWORK_HAS_CONTROL_OF_ENTITY(waterobject))
-			NETWORK::NETWORK_REQUEST_CONTROL_OF_ENTITY(waterobject);
-		ENTITY::SET_ENTITY_COORDS_NO_OFFSET(waterobject, myPos.x, myPos.y, Pos.z, 1, 1, 1);
-		ENTITY::SET_ENTITY_ROTATION(waterobject, 180.0f, 90.0f, 180.0f, 2, 1);
-		set_entity_as_visible(waterobject, false);//Check header file native not working 
-		ENTITY::FREEZE_ENTITY_POSITION(waterobject, true);
+	}
 }

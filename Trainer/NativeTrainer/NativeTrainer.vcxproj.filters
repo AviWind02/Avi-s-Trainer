@@ -97,6 +97,18 @@
     <ClCompile Include="Bodyguards.cpp">
       <Filter>Submneu\Self\Bodyguard</Filter>
     </ClCompile>
+    <ClCompile Include="OptionO.cpp">
+      <Filter>Submneu\Online</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerList.cpp">
+      <Filter>Submneu\Online</Filter>
+    </ClCompile>
+    <ClCompile Include="OFunction.cpp">
+      <Filter>Submneu\Online</Filter>
+    </ClCompile>
+    <ClCompile Include="PrivateJet.cpp">
+      <Filter>Submneu\Vehicle\VOptions\PrivateJet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\types.h">
@@ -206,6 +218,12 @@
     </ClInclude>
     <ClInclude Include="Bodyguards.h">
       <Filter>Submneu\Self\Bodyguard</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionO.h">
+      <Filter>Submneu\Online</Filter>
+    </ClInclude>
+    <ClInclude Include="PrivateJet.h">
+      <Filter>Submneu\Vehicle\VOptions\PrivateJet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,5 +347,16 @@
     <Filter Include="Submneu\Self\Bodyguard">
       <UniqueIdentifier>{baf48511-1d9f-4393-a20d-458022461d11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Submneu\Online">
+      <UniqueIdentifier>{3a6add5e-9cd2-416f-93e3-828df3446cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Submneu\Vehicle\VOptions\PrivateJet">
+      <UniqueIdentifier>{49d4ecad-f343-4fa0-9eb7-847e89ff95b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="notes.txt">
+      <Filter>Submneu\Vehicle\VOptions\PrivateJet</Filter>
+    </Text>
   </ItemGroup>
 </Project>

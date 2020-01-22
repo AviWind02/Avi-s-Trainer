@@ -1,6 +1,5 @@
 #include"MAIN.h"
 
-int selectedPlayer;
 
 void Menu::Drawing::Text(const char* text, RGBAF rgbaf, VECTOR2 position, VECTOR2_2 size, bool center)
 {
@@ -14,6 +13,31 @@ void Menu::Drawing::Text(const char* text, RGBAF rgbaf, VECTOR2 position, VECTOR
 	UI::BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
 	UI::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME((char*)text);
 	UI::END_TEXT_COMMAND_DISPLAY_TEXT(position.x, position.y);
+}
+bool Menu::StringVectorOption(const char* option, std::vector<std::string> Vector, int& position)
+{
+	Option(option);
+
+	if (Settings::optionCount == Settings::currentOption) {
+		size_t max = Vector.size() - 0.8;
+		int min = 0;
+		if (Settings::leftPressed) {
+			position >= 1 ? position-- : position = max;
+		}
+		if (Settings::rightPressed) {
+			position < max ? position++ : position = min;
+		}
+	}
+
+	if (Settings::currentOption <= Settings::maxVisOptions && Settings::optionCount <= Settings::maxVisOptions)
+		Drawing::Text(Tools::StringToChar("< " + (Vector[position]) + " >"), Settings::optionText, { Settings::menuX + 0.068f, Settings::optionCount * 0.035f + 0.125f }, { 0.5f, 0.5f }, true);
+	else if (Settings::optionCount > Settings::currentOption - Settings::maxVisOptions && Settings::optionCount <= Settings::currentOption)
+		Drawing::Text(Tools::StringToChar("< " + (Vector[position]) + " >"), Settings::optionText, { Settings::menuX + 0.068f, (Settings::optionCount - (Settings::currentOption - 16)) * 0.035f + 0.12f }, { 0.5f, 0.5f }, true);
+
+	if (Settings::optionCount == Settings::currentOption && Settings::selectPressed) return true;
+	//else if (Settings::optionCount == Settings::currentOption && Settings::leftPressed) return true;
+	//else if (Settings::optionCount == Settings::currentOption && Settings::rightPressed) return true;
+	return false;
 }
 bool Menu::StringVector(const char* option, std::vector<std::string> Vector, int& position)
 {
@@ -354,20 +378,18 @@ bool Menu::OptionProp(char* Prop_Name)
 	return false;
 }
 /**/
-bool Menu::WheelOption(char* Rim_Name, int wheel_index, int rim_index, bool Custom)
+bool Menu::WheelOption(char* Rim_Name, int wheel_type, int rim_index, bool Custom)
 {
-
+	int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+	VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
+	VEHICLE::SET_VEHICLE_WHEEL_TYPE(veh, wheel_type);
 	Option(Rim_Name);
 	if (Settings::currentOption == Settings::optionCount)
 	{
-
 		if (Settings::selectPressed)
 		{
 			/*	int SecondaryColor, Primarycolour;
 				VEHICLE::GET_VEHICLE_COLOURS(veh, &Primarycolour, &SecondaryColor);*/
-			int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-			VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-			VEHICLE::SET_VEHICLE_WHEEL_TYPE(veh, wheel_index);
 			VEHICLE::SET_VEHICLE_MOD(veh, 23, rim_index, Custom);
 
 			return true;
@@ -658,6 +680,12 @@ bool Menu::Toggle(const char* option, bool& b00l)
 //	}
 //	return false;
 //}
+int clickNumberKeyboard() {
+	GAMEPLAY::DISPLAY_ONSCREEN_KEYBOARD(1, "", "", "", "", "", "", 10);
+	while (GAMEPLAY::UPDATE_ONSCREEN_KEYBOARD() == 0) WAIT(0);
+	if (!GAMEPLAY::GET_ONSCREEN_KEYBOARD_RESULT()) return 0;
+	return atof(GAMEPLAY::GET_ONSCREEN_KEYBOARD_RESULT());
+}
 bool Menu::Int(const char* option, int& _int, int min, int max)
 {
 	Option(option);
@@ -676,7 +704,10 @@ bool Menu::Int(const char* option, int& _int, int min, int max)
 	else if (Settings::optionCount > Settings::currentOption - Settings::maxVisOptions && Settings::optionCount <= Settings::currentOption)
 		Drawing::Text(Tools::StringToChar("< " + std::to_string(_int) + " >"), Settings::integre, { Settings::menuX + 0.068f, (Settings::optionCount - (Settings::currentOption - 16)) * 0.035f + 0.12f }, { 0.32f, 0.32f }, true);
 
-	if (Settings::optionCount == Settings::currentOption && Settings::selectPressed) return true;
+	if (Settings::optionCount == Settings::currentOption && Settings::selectPressed) {
+		_int = clickNumberKeyboard();
+		return true;
+	}
 	else if (Settings::optionCount == Settings::currentOption && Settings::leftPressed) return true;
 	else if (Settings::optionCount == Settings::currentOption && Settings::rightPressed) return true;
 	return false;

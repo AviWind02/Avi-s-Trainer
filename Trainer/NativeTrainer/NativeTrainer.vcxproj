@@ -16,7 +16,10 @@
     <ClCompile Include="BlackList.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="OFunction.cpp" />
+    <ClCompile Include="OptionO.cpp" />
     <ClCompile Include="Ped.cpp" />
+    <ClCompile Include="PlayerList.cpp" />
     <ClCompile Include="Protalgun.cpp" />
     <ClCompile Include="Customs.cpp" />
     <ClCompile Include="Function.cpp" />
@@ -25,6 +28,7 @@
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectList.cpp" />
+    <ClCompile Include="PrivateJet.cpp" />
     <ClCompile Include="StickDetonator.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vehicle.cpp" />
@@ -48,6 +52,7 @@
     <ClInclude Include="..\..\inc\types.h" />
     <ClInclude Include="Bodyguards.h" />
     <ClInclude Include="dev.h" />
+    <ClInclude Include="PrivateJet.h" />
     <ClInclude Include="MapMods.h" />
     <ClInclude Include="missionhelp.h" />
     <ClInclude Include="Model.h" />
@@ -55,6 +60,7 @@
     <ClInclude Include="BlackList.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="OptionO.h" />
     <ClInclude Include="ped.h" />
     <ClInclude Include="Protalgun.h" />
     <ClInclude Include="Customs.h" />
@@ -77,6 +83,9 @@
     <ClInclude Include="EntityNative.h" />
     <ClInclude Include="WOptions.h" />
     <ClInclude Include="WorldMisc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="notes.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8D82F34A-1D64-465B-84B1-37F89AD3D20B}</ProjectGuid>

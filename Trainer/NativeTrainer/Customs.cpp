@@ -366,6 +366,7 @@ void Armours()
 	setvehmod("Armor Upgrade 60%", 16, 2);
 	setvehmod("Armor Upgrade 80%", 16, 3);
 	setvehmod("Armor Upgrade 100%", 16, 4);
+
 	Menu::Toggle("bulletproof tires", nopooptries);
 	lscopen = false;
 }
@@ -395,6 +396,7 @@ void Bennys_vehicle_Mods()
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, AirFilter) > 0) Menu::MenuOption("Engine Fliters", Fliters);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Struts_mod) > 0) Menu::MenuOption("Strut Brace", Struts);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, EngineBlock) > 0) Menu::MenuOption("Engine Block", Block);
+	Menu::MenuOption("Interior", inside);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Hydraulics) > 0) Menu::MenuOption("Hydraulics", Hydrulics);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Trunk_mod) > 0) Menu::MenuOption("Trunk", Trunk);
 	if (VEHICLE::GET_NUM_VEHICLE_MODS(veh, Tank_mod) > 0) Menu::MenuOption("Tank", Tank);
@@ -419,29 +421,11 @@ void LSC_vehicle_Mods()
 void fbumpear()// grabs  all mods
 {
 	Menu::Title("");
-	Player player = PLAYER::PLAYER_ID();
 	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
 	Menu::Subtitle(VEHICLE::GET_MOD_SLOT_NAME(veh, Selectedmod));
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, Selectedmod);
-
-	for (int i = -1; i < nummods; i++)
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, Selectedmod, i));
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-			{
-				if (Menu::Option(mod))
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					VEHICLE::SET_VEHICLE_MOD(veh, Selectedmod, i, 1);
-				}
-			}
-		}
-	}
+	Set_Veh_Mod_Get_Looped(Selectedmod);
 	lscopen = false;
-
 }
 void proformancce()
 {
@@ -535,21 +519,54 @@ void SuspensionEMS()
 	setvehmod("Competition Suspension", 15, -1);
 	
 
-}
+}	
+void bennyscustomrims();
+bool getbennyswheel = false;
+int currWheelType;
 void Wheelss()
 {
 
-	Menu::Title("");
-	Menu::Subtitle("Rims");
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	int _currWheelType = VEHICLE::GET_VEHICLE_WHEEL_TYPE(veh);
+	INT currWheelIndex = VEHICLE::GET_VEHICLE_MOD(veh, 23);
+	Menu::Title("");
 	Menu::Subtitle("Wheels");
-	Menu::Toggle("Custom Wheels", custom_Wheels);
-	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	Hash s0uthwind = ENTITY::GET_ENTITY_MODEL(veh);
-	if (VEHICLE::IS_THIS_MODEL_A_BIKE(s0uthwind) == true) Menu::MenuOption("Bike Wheels", BackWheels);
+	if (Menu::WheelOption("Custom Wheels", _currWheelType, currWheelIndex, true))
+	{
+		if (VEHICLE::IS_THIS_MODEL_A_BIKE(s0uthwind) == true) {
+
+			VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
+			VEHICLE::SET_VEHICLE_WHEEL_TYPE(veh, _currWheelType);
+			VEHICLE::SET_VEHICLE_MOD(veh, 23, currWheelIndex, true);
+		}
+	}
+	//Menu::MenuOption("Custom bennys Wheels", bennyscustomwheels);
+	if (VEHICLE::IS_THIS_MODEL_A_BIKE(s0uthwind) == true) { 
+	Menu::MenuOption("Front Wheels", frontwheels);
+	Menu::MenuOption("Back Wheels", BackWheels); }
 	if (VEHICLE::IS_THIS_MODEL_A_BIKE(s0uthwind) == false) Menu::MenuOption("Rims", Rims);
 	Menu::MenuOption("Wheel Colour", wheelclass);
 	Menu::MenuOption("Tire smoke", Smoke);
+}
+void bennyscustomrims()
+{
+	Menu::Title("");
+	Menu::Subtitle("Rims");
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	if (getbennyswheel)
+	{
+		 currWheelType = VEHICLE::GET_VEHICLE_WHEEL_TYPE(veh);
+		 getbennyswheel = false;
+	}
+	INT currWheelIndex = VEHICLE::GET_VEHICLE_MOD(veh, 23);
+	Menu::WheelOption("Bennys Custom Wheels1", currWheelType, 31 + currWheelIndex, false);
+	Menu::WheelOption("Bennys Custom Wheels2", currWheelType, 62 + currWheelIndex, false);
+	Menu::WheelOption("Bennys Custom Wheels3", currWheelType, 93 + currWheelIndex, false);
+	Menu::WheelOption("Bennys Custom Wheels4", currWheelType, 124 + currWheelIndex, false);
+	Menu::WheelOption("Bennys Custom Wheels5", currWheelType, 155 + currWheelIndex, false);
+	Menu::WheelOption("Bennys Custom Wheels6", currWheelType, 186 + currWheelIndex, false);
+
 }
 void Rimns()
 {
@@ -565,71 +582,7 @@ void Rimns()
 	Menu::MenuOption("Benny's Bespoke", B);
 	Menu::MenuOption("Benny's Originals", O);
 }
-void BackWheaels()
-{
-	Menu::Title("");
-	Menu::Subtitle("Bike Wheels");
-	Menu::Title("");
 
-	if (Menu::Option("Front Wheels"))
-	{
-		Player player = PLAYER::PLAYER_ID();
-		Ped playerPed = PLAYER::PLAYER_PED_ID();
-		BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-		Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-
-
-		if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-		{
-			Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-			VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-			int nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 23) - 1;
-			int currmod = VEHICLE::GET_VEHICLE_MOD(veh, 23);
-			if (currmod < nummods)
-			{
-				VEHICLE::SET_VEHICLE_MOD(veh, 23, currmod + 1, 0);
-
-
-			}
-			else
-			{
-
-				VEHICLE::SET_VEHICLE_MOD(veh, 23, 1, 0);
-
-			}
-		}
-	}
-	if (Menu::Option("Back Wheel"))
-	{
-		Player player = PLAYER::PLAYER_ID();
-		Ped playerPed = PLAYER::PLAYER_PED_ID();
-		BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-		Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-
-
-		if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-		{
-			Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-			VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-			int nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 24) - 1;
-			int currmod = VEHICLE::GET_VEHICLE_MOD(veh, 24);
-			if (currmod < nummods)
-			{
-
-				VEHICLE::SET_VEHICLE_MOD(veh, 24, currmod + 1, 0);
-
-			}
-			else
-			{
-
-				VEHICLE::SET_VEHICLE_MOD(veh, 24, 1, 0);
-
-			}
-
-		}
-
-	}//
-}
 void Respdrayss()
 {
 	Menu::Title("");
@@ -769,14 +722,11 @@ void NEEaE()
 	Menu::Title("");
 	Menu::Subtitle("Neon RGB");
 	Menu::Int("Red", NR, 0, 255);
-	Menu::Int("Red", NR, 0, 255);
 	Menu::Int("Green", NG, 0, 255);
 	Menu::Int("Blue", NB, 0, 255);
-	{
-		int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-		VEHICLE::_IS_VEHICLE_NEON_LIGHT_ENABLED(veh, 1);
-		VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(veh, NR, NG, NB);
-	}
+	int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
+	VEHICLE::_IS_VEHICLE_NEON_LIGHT_ENABLED(veh, 1);
+	VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(veh, NR, NG, NB);
 }
 void Neonnan()
 {
@@ -1001,63 +951,166 @@ void insidea()
 	{
 	}
 }
+std::string BennysOriginals[31]
+{
+	"Chrome OG Hunnets",
+	"Gold OG Hunnets",
+	"Chrome Wires",
+	"Gold Wires",
+	"Chrome Spoked Out",
+	"Gold Spoked Out",
+	"Chrome Knock - Offs",
+	"Gold Knock - Offs",
+	"Chrome Bigger Worm",
+	"Gold Bigger Worm",
+	"Chrome Vintage Wire",
+	"Gold Vintage Wire",
+	"Chrome Classic Wire",
+	"Gold Classic Wire",
+	"Chrome Smoothie",
+	"Gold Smoothie",
+	"Chrome Classic Rod",
+	"Gold Classic Rod",
+	"Chrome Dollar",
+	"Gold Dollar",
+	"Chrome Mighty Star",
+	"Gold Mighty Star",
+	"Chrome Decadent Dish",
+	"Gold Decadent Dish",
+	"Chrome Razor Style",
+	"Gold Razor Style",
+	"Chrome Celtic Knot",
+	"Gold Celtic Knot",
+	"Chrome Warrior Dish",
+	"Gold Warrior Dish",
+	"Gold Big Dog Spokes",
+};
 void Oa()
 {
 	Menu::Title("");
 	Menu::Subtitle("Benny's Originals");
-	Menu::Int("Benny's Originals", Originals, 0, 216);
 	{
-		int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_WHEEL_TYPE(veh, 9);
-		VEHICLE::SET_VEHICLE_MOD(veh, 23, Originals, 0);
+		for (int i = 0; i < 31; i++)
+		{
+			if(Menu::WheelOption(Menu::Tools::StringToChar(BennysOriginals[i]), 9, i, custom_Wheels))
+			getbennyswheel = true;
+		}
 	}
 }
+std::string BennysBespoke[31]
+{
+	"OG Hunnets",
+	"OG Hunnets(Chrome Lip)",
+	"Knock - Offs",
+	"Knock - Offs(Chrome Lip)",
+	"Spoked Out",
+	"Spoked Out(Chrome Lip)",
+	"Vintage Wire",
+	"Vintage Wire(Chrome Lip)",
+	"Smoothie",
+	"Smoothie(Chrome Lip)",
+	"Smoothie(Solid Color)",
+	"Rod Me Up",
+	"Rod Me Up(Chrome Lip)",
+	"Rod Me Up(Solid Color)",
+	"Clean",
+	"Lotta Chrome",
+	"Spindles",
+	"Viking",
+	"Triple Spoke",
+	"Pharohe",
+	"Tiger Style",
+	"Three Wheelin",
+	"Big Bar",
+	"Biohazard",
+	"Waves",
+	"Lick Lick",
+	"Spiralizer",
+	"Hypnotics",
+	"Psycho - Delic",
+	"Half Cut",
+	"Super Electric",
+};
 void Ba()
 {
 	Menu::Title("");
 	Menu::Subtitle("Benny's Bespoke");
-	Menu::Int("Benny's Bespoke", Bespoke, 0, 216);
+	for (int i = 0; i < 31; i++)
 	{
+		if(Menu::WheelOption(Menu::Tools::StringToChar(BennysBespoke[i]), 8, i, custom_Wheels))
+		    getbennyswheel = true;
+	}
 
-		int veh = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), 0);
-		VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-		VEHICLE::SET_VEHICLE_WHEEL_TYPE(veh, 9);
-		VEHICLE::SET_VEHICLE_MOD(veh, 23, Bespoke, 0);
+}
+std::string bikewheels[36]
+{
+	"Speedway",
+	"Street Special",
+	"Racer",
+	"Track Star",
+	"Overlord",
+	"Trident",
+	"Triple Threat",
+	"Stilleto",
+	"Wires",
+	"Bobber",
+	"Solidus",
+	"Ice Shieldv",
+	"Loops",
+	"Romper Racing",
+	"Warp Drive",
+	"Snowflake",
+	"Holy Spoke",
+	"Old Skool Triple",
+	"Futura",
+	"Quarter Mile King",
+	"Cartwheel",
+	"Double Five",
+	"Shuriken",
+	"Simple Six",
+	"Celtic",
+	"Razer",
+	"Twisted",
+	"Morning Star",
+	"Jagged Spokes",
+	"Eidolon",
+	"Enigma",
+	"Big Spokes",
+	"Webs",
+	"Hotplate",
+	"Bobsta",
+	"Grouch",
+};
+void frontWheaels()
+{
+	Menu::Title("");
+	Menu::Subtitle("Front Bike Wheels");
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
+	for (int i = 0; i < 12; i++)
+	{
+		if (Menu::Option(Menu::Tools::StringToChar(bikewheels[i])))
+			VEHICLE::SET_VEHICLE_MOD(veh, 23, i, 0);
+	}
+}
+void BackWheaels()
+{
+	Menu::Title("");
+	Menu::Subtitle("Back Bike Wheels");
+	Ped playerPed = PLAYER::PLAYER_PED_ID();
+	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
+	for (int i = 0; i < 12; i++)
+	{
+		if(Menu::Option(Menu::Tools::StringToChar(bikewheels[i])))
+		VEHICLE::SET_VEHICLE_MOD(veh, 24, i, 0);
 	}
 }
 void Vaniaty()
 {
 	Menu::Title("");
 	Menu::Subtitle("Vanity Plate");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(26);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 26);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 26);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 26, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 26, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 
 }
 void Window_Options()
@@ -1149,592 +1202,122 @@ void Triamd()
 {
 	Menu::Title("");
 	Menu::Subtitle("Trim");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(27);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 27);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 27);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 27, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 27, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Ornamentas()
 {
 	Menu::Title("");
 	Menu::Subtitle("Ornaments");
+	Set_Veh_Mod_Get_Looped(28);
 
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 28);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 28);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 28, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 28, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Dashboaard()
 {
 	Menu::Title("");
 	Menu::Subtitle("Dashboard");
+	Set_Veh_Mod_Get_Looped(39);
 
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 29);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 29);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 29, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 29, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Diaals()
 {
 	Menu::Title("");
 	Menu::Subtitle("Dials");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(30);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 30);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 30);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 30, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 30, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Speaadker()
 {
 	Menu::Title("");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Menu::Subtitle(VEHICLE::GET_MOD_SLOT_NAME(veh, Selectedmod));
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, Selectedmod);
-
-	for (int i = -1; i < nummods; i++)
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, Selectedmod, i));
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-			{
-				if (Menu::Option(mod))
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					VEHICLE::SET_VEHICLE_MOD(veh, Selectedmod, i, 1);
-				}
-			}
-		}
-	}
+	Menu::Subtitle("Door Speakers");
+	Set_Veh_Mod_Get_Looped(31);
 }
 void Seaatas()
 {
 	Menu::Title("");
 	Menu::Subtitle("Seats");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(32);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 32);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 32);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 32, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 32, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Steeringwheael()
 {
 	Menu::Title("");
 	Menu::Subtitle("Steering wheel");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(33);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 33);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 33);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 33, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 33, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Shiffter()
 {
 	Menu::Title("");
 	Menu::Subtitle("Shifter");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(34);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 34);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 34);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 34, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 34, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Plaqaues()
 {
 	Menu::Title("");
 	Menu::Subtitle("Plaques");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(35);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 35);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 35);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 35, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 35, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Trunak()
 {
 	Menu::Title("");
 	Menu::Subtitle("Trunk");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(37);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 37);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 37);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 37, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 37, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Hydrulicas()
 {
 	Menu::Title("");
 	Menu::Subtitle("Hydrulics");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(38);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 38);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 38);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 38, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 38, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 
 }
 void Blocak()
 {
 	Menu::Title("");
 	Menu::Subtitle("Engine Block");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(39);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 39);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 39);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 39, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 39, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Flitersa()
 {
 	Menu::Title("");
 	Menu::Subtitle("Engine Fliters");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+	Set_Veh_Mod_Get_Looped(40);
 
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 40);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 40);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 40, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 40, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
 }
 void Strutsa()
 {
 	Menu::Title("");
 	Menu::Subtitle("Struts");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 41);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 41);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 41, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 41, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
+	Set_Veh_Mod_Get_Looped(41);
 }
 void Speakferr()
 {
 	Menu::Title("");
 	Menu::Subtitle("Speakers");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 36);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 36);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 36, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 36, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
+	Set_Veh_Mod_Get_Looped(36);
 }
 void Livreya()
 {
 	Menu::Title("");
 	Menu::Subtitle("Livery");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-
-
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 48);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 48);
-
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 48, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 48, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
-
+	Set_Veh_Mod_Get_Looped(48);
 }
 void Aerialsa()
 {
 	Menu::Title("");
 	Menu::Subtitle("Aerials");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 43);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 43);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 43, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name 
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 43, i, 1);
-					//set the veh mod
-
-				}
-			}
-		}
-	}
+	Set_Veh_Mod_Get_Looped(43);
 }
 void Tanka()
 {
 	Menu::Title("");
 	Menu::Subtitle("Tank");
-	Player player = PLAYER::PLAYER_ID();
-	Ped playerPed = PLAYER::PLAYER_PED_ID();
-	BOOL bPlayerExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
-	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
-	Vehicle VEHICLE_ID = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-
-	char nummods = VEHICLE::GET_NUM_VEHICLE_MODS(veh, 45);
-	char currmod = VEHICLE::GET_VEHICLE_MOD(veh, 45);
-	for (int i = 0; i < nummods; i++)
-		//gets the mod numbers
-	{
-		char* mod = UI::_GET_LABEL_TEXT(VEHICLE::GET_MOD_TEXT_LABEL(veh, 45, i));
-		//gets the name in the game set lang
-		{
-			if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
-				//only puts the names out if person in car and checks car
-			{
-				if (Menu::Option(mod))
-					//mod puts all the name
-				{
-					VEHICLE::SET_VEHICLE_MOD_KIT(veh, 0);
-					//mod kit should lways be 0
-					VEHICLE::SET_VEHICLE_MOD(veh, 45, i, 1);
-					//set the veh mod
-				}
-			}
-		}
-	}
+	Set_Veh_Mod_Get_Looped(45);
 }
 void pbrdght()
 {
@@ -1968,17 +1551,16 @@ void RespdrayssED()
 	Vehicle veh = PED::GET_VEHICLE_PED_IS_USING(playerPed);
 	Menu::Title("");
 	Menu::Subtitle("RGB");
-	Menu::Int("RED Primary", Red, 0, 255);
-	Menu::Int("GREEN Primary", Green, 0, 255);
-	Menu::Int("BLUE Primary", Blue, 0, 255);
+	Menu::Int("Red Primary", Red, 0, 255);
+	Menu::Int("Green Primary", Green, 0, 255);
+	Menu::Int("Blue Primary", Blue, 0, 255);
 	if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
 	{
 		VEHICLE::SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(veh, Red, Green, Blue);
 	}
-	//Menu::Subtitle("Secondary");
-	Menu::Int("RED Secondary", SR, 0, 255);
-	Menu::Int("GREEN Secondary", SG, 0, 255);
-	Menu::Int("BLUE Secondary", SB, 0, 255);
+	Menu::Int("Red Secondary", SR, 0, 255);
+	Menu::Int("Green Secondary", SG, 0, 255);
+	Menu::Int("Blue Secondary", SB, 0, 255);
 	if (bPlayerExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, 0))
 	{
 		VEHICLE::SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(veh, SR, SG, SB);
@@ -2569,6 +2151,7 @@ void Tunerrimss()
 {
 	Menu::Title("");
 	Menu::Subtitle("Tuner");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 
 		Menu::WheelOption("Cosmo", 5, 0, custom_Wheels);
@@ -2630,6 +2213,7 @@ void auscalerims()
 {
 	Menu::Title("");
 	Menu::Subtitle("Muscle");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 
 		Menu::WheelOption("Classic Five", 1, 0, custom_Wheels);
@@ -2677,7 +2261,7 @@ void Hdghendrims()
 {
 	Menu::Title("");
 	Menu::Subtitle("Highend");//7
-
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 
 		Menu::WheelOption("Shadow", 7, 0, custom_Wheels);
@@ -2729,6 +2313,7 @@ void SUVrisms()
 
 	Menu::Title("");
 	Menu::Subtitle("SUV");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 		Menu::WheelOption("VIP", 3, 0, custom_Wheels);
 		Menu::WheelOption("Benefactor", 3, 1, custom_Wheels);
@@ -2777,6 +2362,7 @@ void Lowrisderrims()
 {
 	Menu::Title("");
 	Menu::Subtitle("Lowrider");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 		Menu::WheelOption("Flare", 2, 0, custom_Wheels);
 		Menu::WheelOption("Wired", 2, 1, custom_Wheels);
@@ -2817,6 +2403,7 @@ void Sportrsims()
 
 	Menu::Title("");//0
 	Menu::Subtitle("Sports");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 		Menu::WheelOption("Inferno", 0, 0, custom_Wheels);
 		Menu::WheelOption("Deep Five", 0, 1, custom_Wheels);
@@ -2881,6 +2468,7 @@ void Oaffroadrims()
 
 	Menu::Title("");
 	Menu::Subtitle("Off road");
+	Menu::Toggle("Chrome Wheels", chrome_wheels);
 	if (!chrome_wheels) {
 
 		Menu::WheelOption("Raider", 4, 0, custom_Wheels);

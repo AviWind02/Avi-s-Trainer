@@ -20,3 +20,5 @@ bool isplayerinwater();
 bool isentityinwater(Entity entity);
 Vector3 playerPosition();
 Hash key(char* key);
+Entity set_pos(Entity entity, Vector3 pos);
+bool is_it_there(Entity entity, Vector3 pos);
